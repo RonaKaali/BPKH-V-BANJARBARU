@@ -8,10 +8,14 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 const navLinks = [
-  { href: '/', label: 'Beranda' },
-  { href: '/regulations', label: 'Peraturan' },
-  { href: '/contact', label: 'Kontak' },
-  { href: '/faq', label: 'Tanya Jawab AI' },
+    { href: '/', label: 'Beranda' },
+    { href: '/tata-usaha', label: 'Tata Usaha' },
+    { href: '/ppkh', label: 'PPKH' },
+    { href: '/sdhtl', label: 'SDHTL' },
+    { href: '/ppid', label: 'PPID' },
+    { href: '/tentang-balai', label: 'Tentang Balai' },
+    { href: '/pelayanan', label: 'PELAYANAN' },
+    { href: '/unduhan', label: 'FILE UNDUHAN' },
 ];
 
 export function Header() {
@@ -23,8 +27,8 @@ export function Header() {
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <Leaf className="h-6 w-6 text-primary" />
           <span className="font-bold font-headline sm:inline-block">
-            Pusat Informasi Kehutanan
-          </span>
+            BPKH Wilayah V 
+            Banjarbaru          </span>
         </Link>
         <nav className="flex flex-1 items-center space-x-6 text-sm font-medium">
           {navLinks.map(({ href, label }) => (
