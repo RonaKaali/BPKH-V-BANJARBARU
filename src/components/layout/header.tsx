@@ -7,9 +7,13 @@ import { cn } from '@/lib/utils';
 
 const navLinks = [
     { href: '/', label: 'Beranda' },
-    { href: '/regulations', label: 'Peraturan' },
-    { href: '/faq', label: 'Tanya Jawab AI' },
-    { href: '/contact', label: 'Kontak' },
+    { href: '/tata-usaha', label: 'Tata Usaha' },
+    { href: '/ppkh', label: 'PPKH' },
+    { href: '/sdhtl', label: 'SDHTL' },
+    { href: '/ppid', label: 'PPID' },
+    { href: '/tentang-balai', label: 'Tentang Balai' },
+    { href: '/pelayanan', label: 'PELAYANAN' },
+    { href: '/file-unduhan', label: 'FILE UNDUHAN' },
 ];
 
 export function Header() {
@@ -20,7 +24,7 @@ export function Header() {
       <div className="container flex h-24 max-w-screen-2xl items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="https://firebasestorage.googleapis.com/v0/b/app-interviews-dev.appspot.com/o/user-uploads%2F1719572635956-kemenhut.png?alt=media&token=e92f3909-5a98-4c62-85a2-099496464520" alt="Logo Kementerian Kehutanan" width={50} height={50} />
+          <img src="https://firebasestorage.googleapis.com/v0/b/app-interviews-dev.appspot.com/o/user-uploads%2F1719572635956-kemenhut.png?alt=media" alt="Logo Kementerian Kehutanan" width={50} height={50} />
           <span className="font-bold font-headline sm:inline-block">
             Pusat Informasi Kehutanan
           </span>
