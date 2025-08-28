@@ -24,7 +24,8 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-20 max-w-screen-2xl items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <Image src="https://firebasestorage.googleapis.com/v0/b/app-interviews-dev.appspot.com/o/user-uploads%2F1719572635956-kemenhut.png?alt=media&token=e92f3909-5a98-4c62-85a2-099496464520" alt="Logo Kementerian Kehutanan" width={50} height={50} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="https://firebasestorage.googleapis.com/v0/b/app-interviews-dev.appspot.com/o/user-uploads%2F1719572635956-kemenhut.png?alt=media&token=e92f3909-5a98-4c62-85a2-099496464520" alt="Logo Kementerian Kehutanan" width={50} height={50} />
           <span className="font-bold font-headline sm:inline-block">
             BPKH Wilayah V 
             Banjarbaru          </span>

@@ -57,7 +57,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full py-16 md:py-24">
+      <section className="w-full py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-primary font-headline mb-12">
             Pengumuman Terbaru
