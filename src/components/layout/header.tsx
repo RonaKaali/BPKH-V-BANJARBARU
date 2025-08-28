@@ -6,12 +6,12 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
-    { href: '/', label: 'Beranda' },
-    { href: '/tata-usaha', label: 'Tata Usaha' },
+    { href: '/', label: 'BERANDA' },
+    { href: '/tata-usaha', label: 'TATA USAHA' },
     { href: '/ppkh', label: 'PPKH' },
     { href: '/sdhtl', label: 'SDHTL' },
     { href: '/ppid', label: 'PPID' },
-    { href: '/tentang-balai', label: 'Tentang Balai' },
+    { href: '/tentang-balai', label: 'TENTANG BALAI' },
     { href: '/pelayanan', label: 'PELAYANAN' },
     { href: '/file-unduhan', label: 'FILE UNDUHAN' },
 ];
