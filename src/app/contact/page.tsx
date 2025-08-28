@@ -3,28 +3,28 @@ import { Mail, MapPin, Phone, TreePine } from 'lucide-react';
 
 const branches = [
   {
-    name: 'Northern Regional Office',
-    address: '123 Forest Lane, Pinewood City, 10101',
+    name: 'Kantor Wilayah Utara',
+    address: 'Jl. Hutan Pinus No. 123, Kota Pinewood, 10101',
     phone: '(123) 456-7890',
-    email: 'north.office@forestry.gov',
+    email: 'kantor.utara@kehutanan.go.id',
   },
   {
-    name: 'Southern Wetlands Division',
-    address: '456 Marsh Road, Riverbend, 20202',
+    name: 'Divisi Lahan Basah Selatan',
+    address: 'Jl. Rawa No. 456, Riverbend, 20202',
     phone: '(234) 567-8901',
-    email: 'south.office@forestry.gov',
+    email: 'kantor.selatan@kehutanan.go.id',
   },
   {
-    name: 'Western Mountain Range HQ',
-    address: '789 Summit Trail, Boulder Creek, 30303',
+    name: 'Markas Besar Pegunungan Barat',
+    address: 'Jl. Puncak No. 789, Boulder Creek, 30303',
     phone: '(345) 678-9012',
-    email: 'west.office@forestry.gov',
+    email: 'kantor.barat@kehutanan.go.id',
   },
   {
-    name: 'Eastern Coastal Plains Unit',
-    address: '101 Ocean View Dr, Sandy Shores, 40404',
+    name: 'Unit Dataran Pantai Timur',
+    address: 'Jl. Pemandangan Samudra No. 101, Sandy Shores, 40404',
     phone: '(456) 789-0123',
-    email: 'east.office@forestry.gov',
+    email: 'kantor.timur@kehutanan.go.id',
   },
 ];
 
@@ -33,10 +33,10 @@ export default function ContactPage() {
     <div className="container mx-auto max-w-6xl py-16 px-4">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold tracking-tight text-primary font-headline sm:text-5xl">
-          Contact Us
+          Hubungi Kami
         </h1>
         <p className="mt-4 text-lg text-foreground/80">
-          Find your local Ministry of Forestry branch. We are here to help.
+          Temukan cabang Kementerian Kehutanan terdekat. Kami siap membantu.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">

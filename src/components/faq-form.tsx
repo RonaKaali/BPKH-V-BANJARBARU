@@ -23,10 +23,10 @@ const FaqFormSchema = z.object({
   query: z
     .string()
     .min(10, {
-      message: 'Your query must be at least 10 characters long.',
+      message: 'Pertanyaan Anda harus memiliki panjang minimal 10 karakter.',
     })
     .max(500, {
-      message: 'Your query cannot be more than 500 characters.',
+      message: 'Pertanyaan Anda tidak boleh lebih dari 500 karakter.',
     }),
 });
 
@@ -53,7 +53,7 @@ export default function FaqForm() {
     if (result.error) {
       toast({
         variant: 'destructive',
-        title: 'An error occurred',
+        title: 'Terjadi kesalahan',
         description: result.error,
       });
     } else if (result.answer) {
@@ -68,7 +68,7 @@ export default function FaqForm() {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline">Ask a question</CardTitle>
+          <CardTitle className="font-headline">Ajukan pertanyaan</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -78,10 +78,10 @@ export default function FaqForm() {
                 name="query"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Your Question</FormLabel>
+                    <FormLabel>Pertanyaan Anda</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="e.g., What are the rules for camping in national forests?"
+                        placeholder="contoh: Apa aturan untuk berkemah di hutan nasional?"
                         className="resize-none"
                         rows={4}
                         {...field}
@@ -95,7 +95,7 @@ export default function FaqForm() {
                 {isLoading && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 )}
-                Get Answer
+                Dapatkan Jawaban
               </Button>
             </form>
           </Form>
@@ -105,7 +105,7 @@ export default function FaqForm() {
       {isLoading && (
         <div className="mt-8 flex items-center justify-center gap-3 text-foreground/80">
           <Loader2 className="h-5 w-5 animate-spin text-primary" />
-          <span>Generating answer...</span>
+          <span>Menghasilkan jawaban...</span>
         </div>
       )}
 
@@ -115,7 +115,7 @@ export default function FaqForm() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3 font-headline text-primary">
                 <Lightbulb className="h-6 w-6" />
-                AI Generated Answer
+                Jawaban Dihasilkan oleh AI
               </CardTitle>
             </CardHeader>
             <CardContent>

@@ -13,23 +13,23 @@ import Link from 'next/link';
 export default function Home() {
   const announcements = [
     {
-      title: 'New Reforestation Initiative Launched',
+      title: 'Inisiatif Reboisasi Baru Diluncurkan',
       description:
-        'Join us in our ambitious new goal to plant 1 million trees by 2025. Learn how you can contribute.',
+        'Bergabunglah dengan kami dalam tujuan baru kami yang ambisius untuk menanam 1 juta pohon pada tahun 2025. Pelajari bagaimana Anda dapat berkontribusi.',
       image: 'https://picsum.photos/1200/600?random=1',
       hint: 'forest canopy',
     },
     {
-      title: 'Updated Fire Safety Regulations',
+      title: 'Peraturan Keselamatan Kebakaran Terbaru',
       description:
-        'Please review the updated fire safety guidelines for all national parks, effective immediately.',
+        'Harap tinjau pedoman keselamatan kebakaran yang diperbarui untuk semua taman nasional, yang berlaku segera.',
       image: 'https://picsum.photos/1200/600?random=2',
       hint: 'wildfire prevention',
     },
     {
-      title: 'Wildlife Conservation Success',
+      title: 'Keberhasilan Konservasi Satwa Liar',
       description:
-        'A recent study shows a 15% increase in the population of native bird species in protected areas.',
+        'Sebuah studi baru-baru ini menunjukkan peningkatan 15% populasi spesies burung asli di kawasan lindung.',
       image: 'https://picsum.photos/1200/600?random=3',
       hint: 'wildlife photography',
     },
@@ -40,18 +40,18 @@ export default function Home() {
       <section className="w-full bg-primary/10 py-20 md:py-32">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl font-headline">
-            Forestry Information Hub
+            Pusat Informasi Kehutanan
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-lg text-foreground/80">
-            Your central source for understanding and navigating forestry
-            policies, regulations, and conservation efforts.
+            Sumber utama Anda untuk memahami dan menavigasi kebijakan,
+            peraturan, dan upaya konservasi kehutanan.
           </p>
           <div className="mt-10 flex justify-center gap-4">
             <Button asChild size="lg">
-              <Link href="/regulations">Explore Regulations</Link>
+              <Link href="/regulations">Jelajahi Peraturan</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="/faq">Ask AI Helper</Link>
+              <Link href="/faq">Tanya Asisten AI</Link>
             </Button>
           </div>
         </div>
@@ -60,7 +60,7 @@ export default function Home() {
       <section className="w-full py-16 md:py-24">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-primary font-headline mb-12">
-            Latest Announcements
+            Pengumuman Terbaru
           </h2>
           <Carousel
             opts={{

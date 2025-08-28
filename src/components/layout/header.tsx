@@ -8,10 +8,10 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/regulations', label: 'Regulations' },
-  { href: '/contact', label: 'Contact' },
-  { href: '/faq', label: 'AI FAQ' },
+  { href: '/', label: 'Beranda' },
+  { href: '/regulations', label: 'Peraturan' },
+  { href: '/contact', label: 'Kontak' },
+  { href: '/faq', label: 'Tanya Jawab AI' },
 ];
 
 export function Header() {
@@ -23,7 +23,7 @@ export function Header() {
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <Leaf className="h-6 w-6 text-primary" />
           <span className="font-bold font-headline sm:inline-block">
-            Forestry Information Hub
+            Pusat Informasi Kehutanan
           </span>
         </Link>
         <nav className="flex flex-1 items-center space-x-6 text-sm font-medium">

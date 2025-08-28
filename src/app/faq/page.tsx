@@ -9,11 +9,11 @@ export default function FaqPage() {
             <Bot className="h-10 w-10 text-primary"/>
         </div>
         <h1 className="mt-4 text-4xl font-bold tracking-tight text-primary font-headline sm:text-5xl">
-          AI-Powered FAQ
+          Tanya Jawab dengan AI
         </h1>
         <p className="mt-4 text-lg text-foreground/80">
-          Have a question about forestry policy or regulations? Ask our AI
-          assistant for a clear, concise answer.
+          Punya pertanyaan tentang kebijakan atau peraturan kehutanan? Tanyakan pada
+          asisten AI kami untuk jawaban yang jelas dan ringkas.
         </p>
       </div>
       <FaqForm />
