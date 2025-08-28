@@ -7,13 +7,9 @@ import { cn } from '@/lib/utils';
 
 const navLinks = [
     { href: '/', label: 'Beranda' },
-    { href: '/tata-usaha', label: 'Tata Usaha' },
-    { href: '/ppkh', label: 'PPKH' },
-    { href: '/sdhtl', label: 'SDHTL' },
-    { href: '/ppid', label: 'PPID' },
-    { href: '/tentang-balai', label: 'Tentang Balai' },
-    { href: '/pelayanan', label: 'PELAYANAN' },
-    { href: '/file-unduhan', label: 'FILE UNDUHAN' },
+    { href: '/regulations', label: 'Peraturan' },
+    { href: '/faq', label: 'Tanya AI' },
+    { href: '/contact', label: 'Kontak' },
 ];
 
 export function Header() {
@@ -21,14 +17,14 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-24 max-w-screen-2xl items-center">
-        <Link href="/" className="mr-6 flex items-center space-x-2">
-          <img src="https://www.kehutanan.go.id/images/logo.png" alt="Logo Kementerian Kehutanan" className="h-12 w-12" />
-          <span className="font-bold font-headline sm:inline-block">
+      <div className="container flex h-20 max-w-screen-2xl items-center">
+        <Link href="/" className="mr-6 flex items-center space-x-3">
+          <img src="https://www.kehutanan.go.id/images/logo.png" alt="Logo Kementerian Kehutanan" className="h-12 w-auto object-contain" />
+          <span className="font-bold font-headline sm:inline-block text-lg">
             Pusat Informasi Kehutanan
           </span>
         </Link>
-        <nav className="flex-1 flex items-center justify-end space-x-6 text-sm font-medium">
+        <nav className="hidden md:flex flex-1 items-center justify-end space-x-6 text-sm font-medium">
           {navLinks.map(({ href, label }) => (
             <Link
               key={label}
