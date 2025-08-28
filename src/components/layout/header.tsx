@@ -29,7 +29,7 @@ export function Header() {
             BPKH Wilayah V 
             Banjarbaru          </span>
         </Link>
-        <nav className="flex flex-1 items-center space-x-6 text-sm font-medium">
+        <nav className="flex-1 flex items-center justify-end space-x-6 text-sm font-medium">
           {navLinks.map(({ href, label }) => (
             <Link
               key={label}
