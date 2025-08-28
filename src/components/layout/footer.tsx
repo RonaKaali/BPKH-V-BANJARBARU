@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="border-t border-border/40 bg-background/95">
       <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <img src="https://firebasestorage.googleapis.com/v0/b/app-interviews-dev.appspot.com/o/user-uploads%2F1719572635956-kemenhut.png?alt=media" alt="Logo Kementerian Kehutanan" className="h-8 w-8" />
+          <img src="https://www.kehutanan.go.id/images/logo.png" alt="Logo Kementerian Kehutanan" className="h-8 w-8" />
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
             © {new Date().getFullYear()} Kementerian Kehutanan. Semua Hak Dilindungi.
           </p>
