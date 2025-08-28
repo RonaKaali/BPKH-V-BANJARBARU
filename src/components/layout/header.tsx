@@ -4,7 +4,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 
 const navLinks = [
     { href: '/', label: 'Beranda' },
@@ -24,7 +23,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-24 max-w-screen-2xl items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <Image src="https://firebasestorage.googleapis.com/v0/b/app-interviews-dev.appspot.com/o/user-uploads%2F1719572635956-kemenhut.png?alt=media" alt="Logo Kementerian Kehutanan" width={50} height={50} />
+          <img src="https://firebasestorage.googleapis.com/v0/b/app-interviews-dev.appspot.com/o/user-uploads%2F1719572635956-kemenhut.png?alt=media" alt="Logo Kementerian Kehutanan" className="h-12 w-12" />
           <span className="font-bold font-headline sm:inline-block">
             Pusat Informasi Kehutanan
           </span>
