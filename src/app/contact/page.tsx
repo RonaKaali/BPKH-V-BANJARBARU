@@ -41,24 +41,24 @@ export default function ContactPage() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
         {branches.map((branch) => (
-          <Card key={branch.name} className="flex flex-col">
+          <Card key={branch.name} className="flex flex-col bg-accent text-accent-foreground">
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
                 <TreePine className="h-6 w-6 text-primary" />
                 <span className="font-headline">{branch.name}</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col space-y-4 text-foreground/90 flex-grow">
+            <CardContent className="flex flex-col space-y-4 flex-grow">
                 <div className="flex items-start gap-4">
-                    <MapPin className="h-5 w-5 mt-1 text-accent flex-shrink-0" />
+                    <MapPin className="h-5 w-5 mt-1 text-primary flex-shrink-0" />
                     <span>{branch.address}</span>
                 </div>
                 <div className="flex items-center gap-4">
-                    <Phone className="h-5 w-5 text-accent flex-shrink-0" />
+                    <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                     <span>{branch.phone}</span>
                 </div>
                 <div className="flex items-center gap-4">
-                    <Mail className="h-5 w-5 text-accent flex-shrink-0" />
+                    <Mail className="h-5 w-5 text-primary flex-shrink-0" />
                     <span>{branch.email}</span>
                 </div>
             </CardContent>
