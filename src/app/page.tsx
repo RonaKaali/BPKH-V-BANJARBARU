@@ -1,7 +1,78 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+
+interface Feedback {
+  id: string;
+  name: string;
+  message: string;
+  timestamp: string;
+}
 
 export default function Home() {
+  const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
+  const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
+
+  const fetchFeedbacks = async () => {
+    try {
+      const response = await fetch('/api/feedback/list');
+      if (response.ok) {
+        const data = await response.json();
+        setFeedbacks(data);
+      }
+    } catch (error) {
+      console.error('Error fetching feedbacks:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFeedbacks();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFeedbackMessage('');
+    setIsError(false);
+
+    try {
+      const response = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, message }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setFeedbackMessage(result.message);
+        setName('');
+        setMessage('');
+        fetchFeedbacks(); // Refresh the list
+      } else {
+        setIsError(true);
+        setFeedbackMessage(result.message || 'Terjadi kesalahan saat mengirim.');
+      }
+    } catch (error) {
+      setIsError(true);
+      setFeedbackMessage('Tidak dapat terhubung ke server.');
+    }
+
+    setIsSubmitting(false);
+  };
+
   return (
     <div className="flex flex-col">
       <div
@@ -32,7 +103,7 @@ export default function Home() {
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg">
-              <Link href="/regulations">Jelajahi Peraturan</Link>
+              <Link href="/regulations">Peraturan Kemenhut</Link>
             </Button>
             <Button asChild size="lg" className="bg-green-600 text-white hover:bg-green-700">
                 <Link href="/appointment">Buat Janji Temu</Link>
@@ -128,6 +199,51 @@ export default function Home() {
               <a href="https://www.google.com/maps?q=-3.4439437,114.8546658" target="_blank" rel="noopener noreferrer" className="text-lg text-primary hover:underline">
                 -3.4439437,114.8546658
               </a>
+              <Card className="mt-8">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-bold text-primary">
+                    Kritik & Saran
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Nama</Label>
+                      <Input id="name" placeholder="Masukkan nama Anda" value={name} onChange={(e) => setName(e.target.value)} required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="message">Pesan</Label>
+                      <Textarea id="message" placeholder="Tuliskan kritik atau saran Anda" className="min-h-[80px]" value={message} onChange={(e) => setMessage(e.target.value)} required />
+                    </div>
+                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                      {isSubmitting ? 'Mengirim...' : 'Kirim'}
+                    </Button>
+                    {feedbackMessage && (
+                      <p className={`mt-4 text-sm text-center font-medium ${isError ? 'text-red-500' : 'text-green-500'}`}>
+                        {feedbackMessage}
+                      </p>
+                    )}
+                  </form>
+                </CardContent>
+              </Card>
+               <div className="mt-8">
+                <h3 className="text-2xl font-bold text-primary mb-4">Kritik & Saran yang Telah Masuk</h3>
+                <div className="space-y-4">
+                  {feedbacks.length > 0 ? (
+                    feedbacks.map((fb) => (
+                      <Card key={fb.id}>
+                        <CardContent className="pt-4">
+                          <p className="font-semibold">{fb.name}</p>
+                          <p className="text-foreground/80 mt-2">{fb.message}</p>
+                          <p className="text-xs text-foreground/60 mt-2">{new Date(fb.timestamp).toLocaleString()}</p>
+                        </CardContent>
+                      </Card>
+                    ))
+                  ) : (
+                    <p className="text-foreground/80">Belum ada kritik & saran yang masuk.</p>
+                  )}
+                </div>
+              </div>
             </div>
             <div className="flex flex-col gap-8">
               <img

@@ -34,7 +34,8 @@ const prompt = ai.definePrompt({
   User Query: {{{query}}}
 
   Please provide a summarized and easily understandable answer to the user's query.
-  `,config: {
+  `,
+  config: {
     safetySettings: [
       {
         category: 'HARM_CATEGORY_HATE_SPEECH',

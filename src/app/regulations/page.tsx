@@ -54,7 +54,7 @@ export default function RegulationsPage() {
     <div className="container mx-auto max-w-4xl py-16 px-4">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold tracking-tight text-primary font-headline sm:text-5xl">
-          Peraturan Kehutanan
+          Peraturan Kemenhut
         </h1>
         <p className="mt-4 text-lg text-foreground/80">
           Tinjauan umum tentang kebijakan utama dan kerangka hukum yang mengatur hutan kita.
