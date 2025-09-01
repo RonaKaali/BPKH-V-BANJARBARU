@@ -25,10 +25,11 @@ export default function Home() {
 
   const fetchFeedbacks = async () => {
     try {
-      const response = await fetch('/api/feedback/list');
+      const response = await fetch('/api/feedback');
       if (response.ok) {
         const data = await response.json();
-        setFeedbacks(data);
+        const sortedData = data.sort((a: Feedback, b: Feedback) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        setFeedbacks(sortedData);
       }
     } catch (error) {
       console.error('Error fetching feedbacks:', error);
@@ -54,14 +55,13 @@ export default function Home() {
         body: JSON.stringify({ name, message }),
       });
 
-      const result = await response.json();
-
       if (response.ok) {
-        setFeedbackMessage(result.message);
+        setFeedbackMessage('Saran Anda berhasil terkirim!');
         setName('');
         setMessage('');
         fetchFeedbacks(); // Refresh the list
       } else {
+        const result = await response.json();
         setIsError(true);
         setFeedbackMessage(result.message || 'Terjadi kesalahan saat mengirim.');
       }

@@ -11,21 +11,17 @@ import {
 } from "@/components/ui/toast"
 
 export function Toaster() {
-  const { toasts } = useToast()
+  const { toasts, removeToast } = useToast()
 
   return (
     <ToastProvider>
-      {toasts.map(function ({ id, title, description, action, ...props }) {
+      {toasts.map(function ({ id, message, type }) {
         return (
-          <Toast key={id} {...props}>
+          <Toast key={id} variant={type}>
             <div className="grid gap-1">
-              {title && <ToastTitle>{title}</ToastTitle>}
-              {description && (
-                <ToastDescription>{description}</ToastDescription>
-              )}
+              <ToastTitle>{message}</ToastTitle>
             </div>
-            {action}
-            <ToastClose />
+            <ToastClose onClick={() => removeToast(id)} />
           </Toast>
         )
       })}

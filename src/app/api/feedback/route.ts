@@ -1,54 +1,50 @@
+
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 
-const dataFilePath = path.join(process.cwd(), 'data', 'feedback.json');
+const feedbackFilePath = path.join(process.cwd(), 'data', 'feedback.json');
 
-async function ensureDirectoryExists() {
+// Fungsi untuk membaca feedback
+async function getFeedback() {
   try {
-    await fs.mkdir(path.dirname(dataFilePath), { recursive: true });
-  } catch (error: any) {
-    if (error.code !== 'EEXIST') {
-      throw error;
-    }
+    const data = await fs.readFile(feedbackFilePath, 'utf-8');
+    return JSON.parse(data);
+  } catch (error) {
+    return []; // Jika file tidak ada, kembalikan array kosong
   }
 }
 
-export async function POST(request: Request) {
-  try {
-    const body = await request.json();
-    const { name, message } = body;
+// Handler untuk GET request
+export async function GET() {
+  const feedback = await getFeedback();
+  return NextResponse.json(feedback);
+}
 
-    if (!name || !message) {
-      return NextResponse.json({ message: 'Nama dan pesan harus diisi.' }, { status: 400 });
+// Handler untuk POST request
+export async function POST(req: Request) {
+  try {
+    const feedback = await getFeedback();
+    const newFeedback = await req.json();
+
+    if (!newFeedback.name || !newFeedback.message) {
+        return new NextResponse('Nama dan pesan tidak boleh kosong', { status: 400 });
     }
 
-    await ensureDirectoryExists();
-
-    const newFeedback = {
-      id: Date.now().toString(),
-      name,
-      message,
-      timestamp: new Date().toISOString(),
+    // Tambahkan ID unik dan timestamp
+    const feedbackToAdd = {
+        id: Date.now().toString(),
+        timestamp: new Date().toISOString(),
+        ...newFeedback
     };
 
-    let feedbacks = [];
-    try {
-      const fileContent = await fs.readFile(dataFilePath, 'utf-8');
-      feedbacks = JSON.parse(fileContent);
-    } catch (error: any) {
-      if (error.code !== 'ENOENT') {
-        console.error("Error reading feedback file, will overwrite:", error);
-      }
-    }
+    feedback.push(feedbackToAdd);
+    await fs.writeFile(feedbackFilePath, JSON.stringify(feedback, null, 2));
 
-    feedbacks.push(newFeedback);
+    return NextResponse.json(feedbackToAdd, { status: 201 });
 
-    await fs.writeFile(dataFilePath, JSON.stringify(feedbacks, null, 2));
-
-    return NextResponse.json({ message: 'Terima kasih atas masukan Anda!' }, { status: 201 });
   } catch (error) {
-    console.error('Error processing feedback:', error);
-    return NextResponse.json({ message: 'Terjadi kesalahan internal.' }, { status: 500 });
+    console.error('[API_FEEDBACK_POST]', error);
+    return new NextResponse('Kesalahan Internal Server', { status: 500 });
   }
 }
