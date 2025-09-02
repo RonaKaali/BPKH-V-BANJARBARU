@@ -34,7 +34,7 @@ export default function AdminPage() {
   const fetchFeedback = async () => {
     try {
       const res = await fetch('/api/feedback');
-      if (!res.ok) throw new Error('Gagal mengambil data feedback');
+      if (!res.ok) throw new Error('Gagal mengambil data saran & masukan');
       const data = await res.json();
       setFeedback(data.sort((a: Feedback, b: Feedback) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
     } catch (err) {
@@ -86,7 +86,7 @@ export default function AdminPage() {
   
     // Fungsi untuk menghapus feedback
   const handleDeleteFeedback = async (id: string) => {
-    if (confirm('Apakah Anda yakin ingin menghapus feedback ini?')) {
+    if (confirm('Apakah Anda yakin ingin menghapus saran & masukan ini?')) {
       try {
         const res = await fetch(`/api/feedback/${id}`, { method: 'DELETE' });
         if (res.ok) {
@@ -96,7 +96,7 @@ export default function AdminPage() {
           alert(`Gagal menghapus: ${data.message}`);
         }
       } catch (err) {
-        alert('Terjadi kesalahan saat menghapus feedback.');
+        alert('Terjadi kesalahan saat menghapus saran & masukan.');
       }
     }
   };
@@ -120,8 +120,8 @@ export default function AdminPage() {
       </div>
       
       <div style={{ marginBottom: '20px' }}>
-        <button onClick={() => setView('feedback')} style={{ marginRight: '10px', padding: '10px', ...view === 'feedback' && {fontWeight: 'bold'} }}>Lihat Feedback</button>
-        <button onClick={() => setView('appointments')} style={{ padding: '10px', ...view === 'appointments' && {fontWeight: 'bold'} }}>Lihat Janji Temu</button>
+        <button onClick={() => setView('feedback')} style={{ marginRight: '10px', padding: '10px 20px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', fontWeight: view === 'feedback' ? 'bold' : 'normal' }}>Lihat Saran & Masukan</button>
+        <button onClick={() => setView('appointments')} style={{ padding: '10px 20px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', fontWeight: view === 'appointments' ? 'bold' : 'normal' }}>Lihat Janji Temu</button>
       </div>
 
       {loading && <p>Memuat...</p>}
@@ -129,7 +129,7 @@ export default function AdminPage() {
 
       {view === 'feedback' && (
         <div>
-          <h2>Daftar Feedback</h2>
+          <h2>Daftar Saran & Masukan</h2>
            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
             <thead>
               <tr style={{ backgroundColor: '#f2f2f2' }}>
@@ -156,7 +156,7 @@ export default function AdminPage() {
               ) : (
                 <tr>
                   <td colSpan={4} style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                    Belum ada feedback.
+                    Belum ada saran & masukan.
                   </td>
                 </tr>
               )}

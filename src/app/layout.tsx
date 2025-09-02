@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
-import { MainLayout } from '@/components/layout/main-layout'; // Impor MainLayout
+import { MainLayout } from '@/components/layout/main-layout';
+import { SplashScreen } from '@/components/splash-screen';
 
 export const metadata: Metadata = {
   title: 'Pusat Informasi Kehutanan',
@@ -31,7 +32,7 @@ export default function RootLayout({
           'font-body'
         )}
       >
-        {/* Gunakan MainLayout untuk membungkus children */}
+        <SplashScreen />
         <MainLayout>{children}</MainLayout>
         <Toaster />
       </body>

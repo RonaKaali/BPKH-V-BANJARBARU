@@ -78,7 +78,7 @@ export default function StrukturOrganisasiPage() {
                             </CardHeader>
                             <CardContent className="pt-6 flex flex-col items-center">
                                 <img src="/images/jovan-sofyan.png" alt="Kepala Seksi Pengukuhan dan Perencanaan Kawasan Hutan Jovan Sofyan" className="w-44 h-auto rounded-lg object-cover mb-4 border-2 border-primary/20 shadow-lg transition-transform duration-300 hover:scale-105" />
-                                <p className="text-md font-semibold">Jovan Sofyan, S.Hut., M.Hut.</p>
+                                <p className="text-md font-semibold">Dr.Jovan Sofyan, S.Hut., M.Hut.</p>
                             </CardContent>
                         </Card>
                     </div>

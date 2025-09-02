@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import {
   DropdownMenu,
@@ -9,8 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ChevronDown, Search, Lock } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { ChevronDown, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const navLinks = [
@@ -93,14 +92,6 @@ const navLinks = [
 
 export function Header() {
   const pathname = usePathname();
-  const router = useRouter();
-
-  function handleSearch(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const query = formData.get('q') as string;
-    router.push(`/search?q=${query}`);
-  }
 
   return (
     <header 
@@ -133,15 +124,6 @@ export function Header() {
                   Login Admin
               </Button>
             </Link>
-            <form onSubmit={handleSearch} className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input
-                type="search"
-                name="q"
-                placeholder="Pencarian..."
-                className="pl-10 w-64"
-                />
-            </form>
           </div>
         </div>
         <nav className="mt-4 flex flex-1 items-center justify-center space-x-1 text-sm font-medium border-t border-border/40 pt-2">
