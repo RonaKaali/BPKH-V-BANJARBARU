@@ -38,7 +38,11 @@ export default function AdminPage() {
       const data = await res.json();
       setFeedback(data.sort((a: Feedback, b: Feedback) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Terjadi kesalahan yang tidak diketahui saat mengambil feedback');
+      }
     }
   };
 
@@ -50,7 +54,11 @@ export default function AdminPage() {
       const data = await res.json();
       setAppointments(data);
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Terjadi kesalahan yang tidak diketahui saat mengambil janji temu');
+      }
     }
   };
 

@@ -17,7 +17,7 @@ export function Toaster() {
     <ToastProvider>
       {toasts.map(function ({ id, message, type }) {
         return (
-          <Toast key={id} variant={type}>
+          <Toast key={id} variant={type === 'error' ? 'destructive' : 'default'}>
             <div className="grid gap-1">
               <ToastTitle>{message}</ToastTitle>
             </div>

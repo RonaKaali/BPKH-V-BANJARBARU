@@ -1,7 +1,7 @@
 
 import { NextResponse } from 'next/server';
 
-export const POST = async (req: Request, res: Response) => {
+export const POST = async (req: Request) => {
     const { username, password } = await req.json();
 
     // IMPORTANT: Replace with a secure authentication mechanism

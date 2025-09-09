@@ -18,7 +18,7 @@ async function getFeedback() {
 // Handler untuk DELETE request
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: any
 ) {
   try {
     const { id } = params;

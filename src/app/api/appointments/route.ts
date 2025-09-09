@@ -7,7 +7,7 @@ export async function GET() {
   try {
     const appointments = await getAppointments();
     // Urutkan janji temu berdasarkan tanggal terbaru
-    const sortedAppointments = appointments.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const sortedAppointments = appointments.sort((a: { date: string }, b: { date: string }) => new Date(b.date).getTime() - new Date(a.date).getTime());
     return NextResponse.json(sortedAppointments);
   } catch (error) {
     console.error('[API_APPOINTMENTS_GET]', error);

@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 import { updateAppointmentStatus } from '@/lib/data';
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, { params } : any) {
   try {
     const { id } = params;
     const { status } = await req.json();

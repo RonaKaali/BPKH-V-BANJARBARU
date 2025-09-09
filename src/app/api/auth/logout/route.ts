@@ -2,10 +2,11 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
     // Hapus cookie dengan mengatur maxAge ke 0
-    cookies().set('token', '', {
+    const cookieStore = await cookies();
+    cookieStore.set('token', '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       maxAge: 0,

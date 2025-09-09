@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     const users = await getUsers();
 
     const user = users.find(
-      (u) => u.username === username && u.password === password
+      (u: {username: string, password: string}) => u.username === username && u.password === password
     );
 
     if (user) {
@@ -27,7 +27,8 @@ export async function POST(req: Request) {
         .sign(secret);
 
       // --- Set cookie di browser --- 
-      cookies().set('token', token, {
+      const cookieStore = await cookies();
+      cookieStore.set('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 60 * 60 * 2, // 2 jam

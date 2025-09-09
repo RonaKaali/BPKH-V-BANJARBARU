@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ChevronDown, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Clock } from '@/components/ui/clock';
 
 const navLinks = [
   { href: '/', label: 'BERANDA' },
@@ -117,7 +118,8 @@ export function Header() {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-8">
+            <Clock />
             <Link href="/login" passHref>
               <Button variant="outline">
                   <Lock className="mr-2 h-4 w-4" />

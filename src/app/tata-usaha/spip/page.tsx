@@ -25,21 +25,16 @@ export default function SPIPPage() {
           <p className="mb-6 text-foreground/80 text-justify">
             BPKH Wilayah V Banjarbaru berkomitmen untuk menerapkan SPIP secara menyeluruh dalam setiap aspek operasionalnya. Kami percaya bahwa dengan SPIP yang kuat, kami dapat meningkatkan akuntabilitas, transparansi, dan efektivitas kinerja organisasi, serta mencegah terjadinya praktik korupsi, kolusi, dan nepotisme.
           </p>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-                <img src="/images/spip-illustration.jpg" alt="Ilustrasi SPIP" className="w-full h-auto rounded-lg shadow-md" />
-            </div>
-            <div>
-                <h4 className="font-bold text-lg text-primary mb-3">Lima Unsur SPIP</h4>
-                <ul className="space-y-3">
-                {spipElements.map((element, index) => (
-                    <li key={index} className="flex items-center gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="text-foreground/80">{element}</span>
-                    </li>
-                ))}
-                </ul>
-            </div>
+          <div>
+              <h4 className="font-bold text-lg text-primary mb-3">Lima Unsur SPIP</h4>
+              <ul className="space-y-3">
+              {spipElements.map((element, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <span className="text-foreground/80">{element}</span>
+                  </li>
+              ))}
+              </ul>
           </div>
         </CardContent>
       </Card>
