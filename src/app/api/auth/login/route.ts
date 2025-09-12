@@ -1,22 +1,22 @@
-
-import { getUsers } from '@/lib/data';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import * as jose from 'jose';
+import { findUserByUsername } from '@/lib/users'; // Menggunakan fungsi dari lib/users.ts
 
 export async function POST(req: Request) {
   try {
     const { username, password } = await req.json();
-    const users = await getUsers();
 
-    const user = users.find(
-      (u: {username: string, password: string}) => u.username === username && u.password === password
-    );
+    // Cari pengguna di database MongoDB
+    const user = await findUserByUsername(username);
 
-    if (user) {
+    // Periksa apakah pengguna ada dan password-nya cocok
+    // PERHATIAN: Ini adalah perbandingan password dalam bentuk teks biasa.
+    // Di aplikasi produksi, Anda HARUS menggunakan hashing (misalnya bcrypt) untuk keamanan.
+    if (user && user.password === password) {
       // --- Buat JWT Token ---
       const secret = new TextEncoder().encode(
-        process.env.JWT_SECRET || 'your-super-secret-key-that-is-at-least-32-bytes-long' // Ganti dengan secret key yang kuat di .env.local
+        process.env.JWT_SECRET || 'your-super-secret-key-that-is-at-least-32-bytes-long'
       );
       const alg = 'HS256';
 
@@ -26,9 +26,8 @@ export async function POST(req: Request) {
         .setIssuedAt()
         .sign(secret);
 
-      // --- Set cookie di browser --- 
-      const cookieStore = await cookies();
-      cookieStore.set('token', token, {
+      // --- Set cookie di browser ---
+      cookies().set('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 60 * 60 * 2, // 2 jam

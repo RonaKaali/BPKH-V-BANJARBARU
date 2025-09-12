@@ -10,6 +10,7 @@ import { useState } from 'react';
 
 export default function AppointmentPage() {
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [date, setDate] = useState('');
   const [purpose, setPurpose] = useState('');
@@ -29,17 +30,19 @@ export default function AppointmentPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, phone, date, purpose }),
+        body: JSON.stringify({ name, email, phone, date, purpose }),
       });
+
+      const result = await response.json();
 
       if (response.ok) {
         setAppointmentMessage('Janji temu Anda berhasil dibuat!');
         setName('');
+        setEmail('');
         setPhone('');
         setDate('');
         setPurpose('');
       } else {
-        const result = await response.json();
         setIsError(true);
         setAppointmentMessage(result.message || 'Terjadi kesalahan saat membuat janji temu.');
       }
@@ -73,6 +76,10 @@ export default function AppointmentPage() {
             <div className="space-y-2">
               <Label htmlFor="name">Nama</Label>
               <Input id="name" placeholder="Masukkan nama Anda" value={name} onChange={(e) => setName(e.target.value)} required />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" placeholder="Masukkan email Anda" value={email} onChange={(e) => setEmail(e.target.value)} required />
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone">Nomor Telepon</Label>

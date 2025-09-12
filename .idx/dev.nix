@@ -1,44 +1,25 @@
-# To learn more about how to use Nix to configure your environment
-# see: https://firebase.google.com/docs/studio/customize-workspace
-{pkgs}: {
-  # Which nixpkgs channel to use.
-  channel = "stable-24.11"; # or "unstable"
-  # Use https://search.nixos.org/packages to find packages
+{ pkgs, ... }: {
+  # You can install any package, this is just an example
   packages = [
-    pkgs.nodejs_20
-    pkgs.zulu
+    pkgs.mongodb
   ];
+
   # Sets environment variables in the workspace
   env = {};
-  # This adds a file watcher to startup the firebase emulators. The emulators will only start if
-  # a firebase.json file is written into the user's directory
-  services.firebase.emulators = {
-    # Disabling because we are using prod backends right now
-    detect = false;
-    projectId = "demo-app";
-    services = ["auth" "firestore"];
-  };
-  idx = {
-    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
-    extensions = [
-      # "vscodevim.vim"
-    ];
-    workspace = {
-      onCreate = {
-        default.openFiles = [
-          "src/app/page.tsx"
-        ];
-      };
-    };
-    # Enable previews and customize configuration
-    previews = {
-      enable = true;
-      previews = {
-        web = {
-          command = ["npm" "run" "dev" "--" "--port" "$PORT" "--hostname" "0.0.0.0"];
-          manager = "web";
-        };
-      };
-    };
-  };
+
+  # Search for the starship package in nixpkgs
+  # Adds it to the shell
+  # You can also use legacyPackages.starship
+  pre-init = ''
+    mkdir -p .local/share/mongodb
+    mongod --dbpath .local/share/mongodb &
+  '';
+
+  # The main shell to start when opening the workspace
+  # Sets the welcome message as well
+  start = ''
+    echo "Welcome to your new workspace!"
+    # The command to start your application
+    npm run dev
+  '';
 }

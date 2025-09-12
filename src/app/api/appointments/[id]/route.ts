@@ -1,6 +1,5 @@
-
 import { NextResponse } from 'next/server';
-import { updateAppointmentStatus } from '@/lib/data';
+import { updateAppointmentStatus } from '@/lib/appointments';
 
 export async function PATCH(req: Request, { params } : any) {
   try {
@@ -11,11 +10,7 @@ export async function PATCH(req: Request, { params } : any) {
       return NextResponse.json({ message: 'Status tidak boleh kosong' }, { status: 400 });
     }
 
-    const success = await updateAppointmentStatus(id, status);
-
-    if (!success) {
-      return NextResponse.json({ message: 'Janji temu tidak ditemukan' }, { status: 404 });
-    }
+    await updateAppointmentStatus(id, status);
 
     return NextResponse.json({ message: 'Status berhasil diperbarui' });
 

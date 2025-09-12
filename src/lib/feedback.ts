@@ -1,33 +1,25 @@
+import { connectToDatabase } from './mongodb';
+import { ObjectId } from 'mongodb';
 
-// Data feedback sementara di dalam memori
-let feedbackData: any[] = [
-  { id: '1', name: 'Budi', message: 'Website ini sangat informatif!', timestamp: new Date().toISOString() },
-  { id: '2', name: 'Ani', message: 'Tampilannya bagus dan mudah digunakan.', timestamp: new Date().toISOString() },
-];
-
-// --- Fungsi Feedback (Versi Lokal) ---
-
-// Fungsi untuk membaca semua feedback
-export async function getFeedback() {
-  // Mengembalikan data dari array lokal
-  return feedbackData;
+async function getFeedbackCollection() {
+  const db = await connectToDatabase();
+  return db.collection('feedback');
 }
 
-// Fungsi untuk menambah feedback baru
-export async function addFeedback(feedback: any) {
-  const newFeedback = {
-    id: (feedbackData.length + 1).toString(),
-    ...feedback,
-    timestamp: new Date().toISOString()
-  };
-  feedbackData.push(newFeedback);
-  return newFeedback;
-}
+export const getFeedback = async () => {
+  const collection = await getFeedbackCollection();
+  const feedback = await collection.find({}).toArray();
+  return feedback.map(doc => ({ id: doc._id.toString(), ...doc }));
+};
 
-// Fungsi untuk menghapus feedback berdasarkan ID
-export async function deleteFeedbackById(id: string) {
-  const initialLength = feedbackData.length;
-  feedbackData = feedbackData.filter((fb: any) => fb.id !== id);
-  // Mengembalikan true jika ada yang terhapus, false jika tidak
-  return feedbackData.length < initialLength;
-}
+export const addFeedback = async (feedback: { name: string, message: string }) => {
+  const collection = await getFeedbackCollection();
+  const result = await collection.insertOne({ ...feedback, timestamp: new Date() });
+  return result.insertedId.toString();
+};
+
+export const deleteFeedbackById = async (id: string) => {
+  const collection = await getFeedbackCollection();
+  const result = await collection.deleteOne({ _id: new ObjectId(id) });
+  return result.deletedCount > 0;
+};
