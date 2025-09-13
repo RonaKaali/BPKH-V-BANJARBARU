@@ -1,30 +1,42 @@
 import { NextResponse } from 'next/server';
 import { updateAppointmentStatus } from '@/lib/appointments';
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+// Define a specific interface for the context to ensure type safety
+interface RouteContext {
+  params: {
+    id: string;
+  };
+}
+
+export async function PATCH(req: Request, context: RouteContext) {
   try {
-    let { status } = await req.json();
+    const { status } = await req.json();
+    const { id } = context.params; // Extract id from context
 
-    if (!status) {
-      return NextResponse.json({ message: 'Status tidak boleh kosong' }, { status: 400 });
+    if (!status || typeof status !== 'string') {
+      return NextResponse.json({ message: 'Status tidak boleh kosong dan harus berupa string' }, { status: 400 });
     }
 
-    // Standardize status to Title Case
-    let finalStatus = status;
-    if (status === 'on going') {
-      finalStatus = 'On Going';
-    } else {
-      finalStatus = status.charAt(0).toUpperCase() + status.slice(1);
-    }
+    // Standardize status to "Title Case" (e.g., "on going" -> "On Going", "pending" -> "Pending")
+    const formattedStatus = status
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
 
-    // Langsung gunakan params.id untuk menghindari error di Next.js versi baru
-    await updateAppointmentStatus(params.id, finalStatus);
+    await updateAppointmentStatus(id, formattedStatus);
 
     return NextResponse.json({ message: 'Status berhasil diperbarui' });
 
   } catch (error) {
-    console.error('[API_APPOINTMENTS_STATUS_PATCH]', error);
-    // Asumsikan kesalahan berasal dari `updateAppointmentStatus` yang melemparkan kesalahan (mis. tidak ditemukan)
+    console.error('[API_APPOINTMENTS_ID_PATCH]', error);
+    
+    // Check if the error is a known 'Not Found' error from the library
+    if (error instanceof Error && error.message.includes('tidak ditemukan')) {
+        return NextResponse.json({ message: error.message }, { status: 404 });
+    }
+
+    // Generic internal server error
     const errorMessage = error instanceof Error ? error.message : 'Kesalahan Internal Server';
     return NextResponse.json({ message: errorMessage }, { status: 500 });
   }
