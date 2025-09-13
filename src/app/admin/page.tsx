@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -19,7 +18,7 @@ interface Appointment {
   phone: string;
   date: string;
   purpose: string;
-  status: 'pending' | 'on going' | 'done'; // Tambahkan status
+  status: 'Pending' | 'On Going' | 'Done';
 }
 
 export default function AdminPage() {
@@ -30,7 +29,6 @@ export default function AdminPage() {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  // Fungsi untuk mengambil data feedback
   const fetchFeedback = async () => {
     try {
       const res = await fetch('/api/feedback');
@@ -38,15 +36,10 @@ export default function AdminPage() {
       const data = await res.json();
       setFeedback(data.sort((a: Feedback, b: Feedback) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('Terjadi kesalahan yang tidak diketahui saat mengambil feedback');
-      }
+      setError(err instanceof Error ? err.message : 'Terjadi kesalahan yang tidak diketahui saat mengambil feedback');
     }
   };
 
-  // Fungsi untuk mengambil data janji temu
   const fetchAppointments = async () => {
     try {
       const res = await fetch('/api/appointments');
@@ -54,15 +47,10 @@ export default function AdminPage() {
       const data = await res.json();
       setAppointments(data);
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('Terjadi kesalahan yang tidak diketahui saat mengambil janji temu');
-      }
+      setError(err instanceof Error ? err.message : 'Terjadi kesalahan yang tidak diketahui saat mengambil janji temu');
     }
   };
 
-  // Ambil semua data saat komponen dimuat
   useEffect(() => {
     const fetchAllData = async () => {
       setLoading(true);
@@ -72,27 +60,32 @@ export default function AdminPage() {
     fetchAllData();
   }, []);
 
-  // Handler untuk mengubah status janji temu
-  const handleStatusChange = async (id: string, status: string) => {
+  const handleStatusChange = async (id: string, newStatus: 'Pending' | 'On Going' | 'Done') => {
+    const previousAppointments = appointments;
+    const newAppointments = appointments.map((appt) =>
+      appt.id === id ? { ...appt, status: newStatus } : appt
+    );
+    setAppointments(newAppointments);
+
     try {
       const res = await fetch(`/api/appointments/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ status: newStatus }),
       });
 
-      if (res.ok) {
-        fetchAppointments(); // Muat ulang data janji temu
-      } else {
+      if (!res.ok) {
         const data = await res.json();
-        alert(`Gagal memperbarui status: ${data.message}`);
+        setAppointments(previousAppointments);
+        alert(`Gagal memperbarui status: ${data.message || 'Kesalahan tidak diketahui'}`);
       }
     } catch (err) {
-      alert('Terjadi kesalahan saat memperbarui status.');
+      setAppointments(previousAppointments);
+      alert('Terjadi kesalahan saat memperbarui status. Periksa koneksi Anda.');
+      console.error(err);
     }
   };
-  
-    // Fungsi untuk menghapus feedback
+
   const handleDeleteFeedback = async (id: string) => {
     if (confirm('Apakah Anda yakin ingin menghapus saran & masukan ini?')) {
       try {
@@ -109,8 +102,6 @@ export default function AdminPage() {
     }
   };
 
-
-  // Fungsi untuk logout
   const handleLogout = async () => {
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
@@ -138,7 +129,7 @@ export default function AdminPage() {
       {view === 'feedback' && (
         <div>
           <h2>Daftar Saran & Masukan</h2>
-           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
             <thead>
               <tr style={{ backgroundColor: '#f2f2f2' }}>
                 <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Nama</th>
@@ -197,12 +188,12 @@ export default function AdminPage() {
                     <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                       <select
                         value={appt.status}
-                        onChange={(e) => handleStatusChange(appt.id, e.target.value)}
+                        onChange={(e) => handleStatusChange(appt.id, e.target.value as 'Pending' | 'On Going' | 'Done')}
                         style={{ padding: '5px' }}
                       >
-                        <option value="pending">Pending</option>
-                        <option value="on going">On Going</option>
-                        <option value="done">Done</option>
+                        <option value="Pending">Pending</option>
+                        <option value="On Going">On Going</option>
+                        <option value="Done">Done</option>
                       </select>
                     </td>
                   </tr>

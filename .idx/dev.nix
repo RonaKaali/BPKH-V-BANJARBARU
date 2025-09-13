@@ -5,11 +5,13 @@
   ];
 
   # Sets environment variables in the workspace
-  env = {};
+  env = {
+    MONGODB_URI = "mongodb://localhost:27017";
+  };
 
   # The main shell to start when opening the workspace
   # Sets the welcome message as well
-  start = ''
+  bootstrap = ''
     echo "Welcome to your new workspace!"
     mkdir -p .local/share/mongodb
     mongod --dbpath .local/share/mongodb &

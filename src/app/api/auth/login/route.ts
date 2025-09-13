@@ -26,15 +26,16 @@ export async function POST(req: Request) {
         .setIssuedAt()
         .sign(secret);
 
-      // --- Set cookie di browser ---
-      cookies().set('token', token, {
+      // --- Set cookie di browser (Pola Next.js 14+) ---
+      const response = NextResponse.json({ message: 'Login berhasil' }, { status: 200 });
+      response.cookies.set('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         maxAge: 60 * 60 * 2, // 2 jam
         path: '/',
       });
 
-      return NextResponse.json({ message: 'Login berhasil' }, { status: 200 });
+      return response;
     } else {
       return NextResponse.json({ message: 'Username atau password salah' }, { status: 401 });
     }

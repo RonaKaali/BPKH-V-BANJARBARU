@@ -4,11 +4,11 @@ import { deleteFeedbackById } from '@/lib/feedback';
 // Handler untuk DELETE request
 export async function DELETE(
   req: Request,
-  { params }: any
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params;
-    const success = await deleteFeedbackById(id);
+    // Langsung gunakan params.id untuk menghindari error di Next.js versi baru
+    const success = await deleteFeedbackById(params.id);
 
     if (!success) {
       return new NextResponse('Feedback tidak ditemukan', { status: 404 });

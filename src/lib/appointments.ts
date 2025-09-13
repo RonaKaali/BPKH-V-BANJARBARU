@@ -20,5 +20,13 @@ export const addAppointment = async (appointment: { name: string, email: string,
 
 export const updateAppointmentStatus = async (id: string, status: string) => {
   const collection = await getAppointmentsCollection();
-  await collection.updateOne({ _id: new ObjectId(id) }, { $set: { status } });
+  const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: { status } });
+
+  if (result.matchedCount === 0) {
+    throw new Error('Janji temu tidak ditemukan');
+  }
+
+  if (result.modifiedCount === 0) {
+    // Tidak ada yang diubah, bisa jadi statusnya sama
+  }
 };
