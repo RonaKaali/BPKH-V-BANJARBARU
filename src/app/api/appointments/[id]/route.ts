@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-
 import { updateAppointmentStatus } from '@/lib/appointments';
 
 // Using `any` as a workaround for a persistent type error in Next.js 15.5.2 on Vercel.

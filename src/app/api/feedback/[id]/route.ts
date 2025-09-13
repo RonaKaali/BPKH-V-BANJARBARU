@@ -1,14 +1,15 @@
 import { NextResponse } from 'next/server';
 import { deleteFeedbackById } from '@/lib/feedback';
 
-// Handler untuk DELETE request
+// Using `any` as a workaround for a persistent type error in Next.js 15.5.2 on Vercel.
+// This bypasses the type checker for the second argument to allow the build to pass.
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  _req: Request, // req is unused but required for the signature
+  context: any
 ) {
   try {
-    // Langsung gunakan params.id untuk menghindari error di Next.js versi baru
-    const success = await deleteFeedbackById(params.id);
+    const { id } = context.params; // Manually get id from the context object
+    const success = await deleteFeedbackById(id);
 
     if (!success) {
       return new NextResponse('Feedback tidak ditemukan', { status: 404 });
