@@ -9,7 +9,8 @@ async function getFeedbackCollection() {
 export const getFeedback = async () => {
   const collection = await getFeedbackCollection();
   const feedback = await collection.find({}).toArray();
-  return feedback.map(doc => ({ id: doc._id.toString(), ...doc }));
+  // Explicitly type `doc` as `any` to resolve the build error.
+  return feedback.map((doc: any) => ({ id: doc._id.toString(), ...doc }));
 };
 
 export const addFeedback = async (feedback: { name: string, message: string }) => {
