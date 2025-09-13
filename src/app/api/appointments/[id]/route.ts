@@ -1,23 +1,22 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { updateAppointmentStatus } from '@/lib/appointments';
 
-// Define a specific interface for the context to ensure type safety
-interface RouteContext {
-  params: {
-    id: string;
-  };
-}
-
-export async function PATCH(req: Request, context: RouteContext) {
+// The second argument's type for route handlers in Next.js App Router
+// is an object containing the `params` object.
+// We will use the more specific `NextRequest` type for the request object.
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const { status } = await req.json();
-    const { id } = context.params; // Extract id from context
+    const { id } = params;
 
     if (!status || typeof status !== 'string') {
       return NextResponse.json({ message: 'Status tidak boleh kosong dan harus berupa string' }, { status: 400 });
     }
 
-    // Standardize status to "Title Case" (e.g., "on going" -> "On Going", "pending" -> "Pending")
+    // Standardize status to "Title Case"
     const formattedStatus = status
       .toLowerCase()
       .split(' ')
@@ -31,12 +30,10 @@ export async function PATCH(req: Request, context: RouteContext) {
   } catch (error) {
     console.error('[API_APPOINTMENTS_ID_PATCH]', error);
     
-    // Check if the error is a known 'Not Found' error from the library
     if (error instanceof Error && error.message.includes('tidak ditemukan')) {
         return NextResponse.json({ message: error.message }, { status: 404 });
     }
 
-    // Generic internal server error
     const errorMessage = error instanceof Error ? error.message : 'Kesalahan Internal Server';
     return NextResponse.json({ message: errorMessage }, { status: 500 });
   }
