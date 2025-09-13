@@ -9,7 +9,8 @@ async function getAppointmentsCollection() {
 export const getAppointments = async () => {
   const collection = await getAppointmentsCollection();
   const appointments = await collection.find({}).toArray();
-  return appointments.map(doc => ({ id: doc._id.toString(), ...doc }));
+  // Explicitly type `doc` as `any` to resolve the build error.
+  return appointments.map((doc: any) => ({ id: doc._id.toString(), ...doc }));
 };
 
 export const addAppointment = async (appointment: { name: string, email: string, phone: string, date: string, purpose: string }) => {
