@@ -1,9 +1,5 @@
 import { MongoClient, Db } from 'mongodb';
 
-// --- DEBUGGING LINE ---
-console.log(`[DEBUG] MONGODB_URI value is: ${process.env.MONGODB_URI}`);
-// --------------------
-
 const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const client = new MongoClient(uri);
 
