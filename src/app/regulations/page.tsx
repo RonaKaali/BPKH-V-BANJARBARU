@@ -1,82 +1,70 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { FileText } from 'lucide-react';
+"use client";
+import React from 'react';
 
-const regulations = [
+const downloadFiles = [
   {
-    id: 'reg-001',
-    title: 'Undang-Undang Pengelolaan Hutan Nasional Tahun 2023',
-    summary:
-      'Undang-undang ini menguraikan pedoman utama untuk pengelolaan hutan berkelanjutan, termasuk pemanenan kayu, reboisasi, dan konservasi keanekaragaman hayati di dalam wilayah hutan nasional.',
-    details:
-      'Ketentuan utamanya mencakup penilaian dampak lingkungan wajib untuk semua operasi penebangan, dana reboisasi nasional yang didukung oleh pajak kayu, dan pembentukan zona lindung baru untuk habitat spesies langka. Undang-undang ini juga menetapkan sanksi bagi yang tidak mematuhi.',
+    no: 1,
+    file: 'AKUNTABILITAS KINERJA',
+    keterangan: 'Dokumen Pendukung Akuntabilitas BPKHTL Wilayah V Banjarbaru, meliputi Dokumen Perjanjian Kinerja, Rencana Strategis, Rencana Kerja, Laporan Kinerja dan Tahunan, serta Dokumen pendukung lainnya.',
+    link: '#' // Ganti dengan URL file yang sebenarnya
   },
   {
-    id: 'reg-002',
-    title: 'Kode Pencegahan dan Pengendalian Kebakaran Hutan',
-    summary:
-      'Serangkaian peraturan yang dirancang untuk meminimalkan risiko kebakaran hutan dan menetapkan protokol untuk penahanan dan pengelolaannya.',
-    details:
-      'Kode ini mengamanatkan pembuatan sekat bakar di sekitar komunitas yang rentan, membatasi api terbuka selama musim kemarau (1 Mei - 31 Oktober), dan mewajibkan pemilik lahan untuk membersihkan vegetasi kering dari properti mereka. Ini juga merinci struktur komando untuk tanggap darurat.',
+    no: 2,
+    file: 'PERATURAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN REPUBLIK INDONESIA',
+    keterangan: 'PERATURAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN NOMOR 18 TAHUN 2022 TENTANG ORGANISASI DAN TATA KERJA BALAI PEMANTAPAN KAWASAN HUTAN DAN TATA LINGKUNGAN.',
+    link: '#' // Ganti dengan URL file yang sebenarnya
   },
   {
-    id: 'reg-003',
-    title: 'Aturan Pemanenan Hasil Hutan Bukan Kayu',
-    summary:
-      'Mengatur pengumpulan produk non-kayu secara berkelanjutan seperti tanaman obat, jamur, dan resin oleh masyarakat lokal dan entitas komersial.',
-    details:
-      'Izin diperlukan untuk pemanenan komersial, dengan kuota ditetapkan setiap tahun berdasarkan survei ekologis. Pemanenan tradisional oleh masyarakat adat untuk penggunaan pribadi dibebaskan dari perizinan tetapi harus mengikuti praktik berkelanjutan. Daftar spesies yang dilarang diperbarui dua kali setahun.',
-  },
-  {
-    id: 'reg-004',
-    title: 'Pedoman Akses dan Rekreasi Hutan',
-    summary:
-      'Aturan untuk akses publik ke hutan untuk kegiatan rekreasi seperti hiking, berkemah, dan pengamatan satwa liar.',
-    details:
-      'Jalur dan tempat perkemahan yang telah ditentukan harus digunakan. Kendaraan bermotor dibatasi pada jalan yang ditandai. Prinsip "Leave No Trace" ditegakkan, dan semua sampah harus dibawa keluar. Berkemah dibatasi hingga 14 hari berturut-turut di satu lokasi. Area tertentu dapat ditutup sementara untuk melindungi satwa liar selama musim kawin.',
-  },
-  {
-    id: 'reg-005',
-    title: 'Undang-Undang Sekuestrasi Karbon dan Kredit',
-    summary:
-      'Membangun kerangka kerja bagi proyek-proyek kehutanan untuk menghasilkan kredit karbon melalui sekuestrasi karbon yang terverifikasi.',
-    details:
-      'Undang-undang ini mendefinisikan metodologi untuk mengukur karbon yang tersimpan di hutan, mendirikan registri nasional untuk kredit karbon, dan memberikan insentif keuangan bagi pemilik lahan yang mengubah lahan mereka menjadi tutupan hutan permanen atau mengadopsi praktik pengelolaan hutan yang lebih baik yang meningkatkan stok karbon.',
-  },
+    no: 3,
+    file: 'PERATURAN DIREKTUR JENDERAL PLANOLOGI KEHUTANAN DAN TATA LINGKUNGAN',
+    keterangan: 'PERATURAN DIREKTUR JENDERAL PLANOLOGI KEHUTANAN DAN TATA LINGKUNGAN NOMOR : P.3/PKTL/SET.2/OTL.0/1/2021 TENTANG PELAKSANAAN FUNGSI BALAI PEMANTAPAN KAWASAN HUTAN BIDANG TATA LINGKUNGAN.',
+    link: '#' // Ganti dengan URL file yang sebenarnya
+  }
 ];
 
-export default function RegulationsPage() {
+const RegulationsPage = () => {
   return (
-    <div className="container mx-auto max-w-4xl py-16 px-4">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight text-primary font-headline sm:text-5xl">
-          Peraturan Kemenhut
-        </h1>
-        <p className="mt-4 text-lg text-foreground/80">
-          Tinjauan umum tentang kebijakan utama dan kerangka hukum yang mengatur hutan kita.
+    <div className="bg-white min-h-screen">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 className="text-4xl font-bold text-gray-800 mb-4">File Unduhan</h1>
+        <p className="text-lg text-gray-600 mb-10">
+          Berikut adalah daftar dokumen, peraturan, dan file lain yang dapat Anda unduh.
         </p>
-      </div>
 
-      <Accordion type="single" collapsible className="w-full">
-        {regulations.map((reg) => (
-          <AccordionItem value={reg.id} key={reg.id}>
-            <AccordionTrigger className="text-left hover:no-underline">
-              <div className="flex items-center gap-4">
-                <FileText className="h-5 w-5 text-accent flex-shrink-0" />
-                <span className="font-headline text-lg">{reg.title}</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="space-y-4 pl-9">
-              <p className="font-semibold text-foreground/90">{reg.summary}</p>
-              <p className="text-foreground/70">{reg.details}</p>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+        <div className="overflow-x-auto shadow-md rounded-lg">
+          <table className="min-w-full text-sm text-left text-gray-700">
+            <thead className="text-xs text-gray-800 uppercase bg-green-100">
+              <tr>
+                <th scope="col" className="px-6 py-3 w-16 text-center">NO</th>
+                <th scope="col" className="px-6 py-3">FILE</th>
+                <th scope="col" className="px-6 py-3">KETERANGAN</th>
+                <th scope="col" className="px-6 py-3 w-40 text-center">LINK</th>
+              </tr>
+            </thead>
+            <tbody>
+              {downloadFiles.map((item) => (
+                <tr key={item.no} className="bg-white border-b hover:bg-gray-50">
+                  <td className="px-6 py-4 text-center font-medium text-gray-900">{item.no}</td>
+                  <td className="px-6 py-4 font-semibold text-gray-800">{item.file}</td>
+                  <td className="px-6 py-4">{item.keterangan}</td>
+                  <td className="px-6 py-4 text-center">
+                    <a 
+                      href={item.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="font-bold text-green-600 hover:text-green-800 hover:underline"
+                    >
+                      DOWNLOAD
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default RegulationsPage;
