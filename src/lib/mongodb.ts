@@ -1,13 +1,14 @@
 import { MongoClient, Db } from 'mongodb';
 
-const uri = process.env.MONGODB_URI;
+// --- LANGKAH DIAGNOSTIK: URI DI-HARDCODE ---
+// Kita melewati process.env.MONGODB_URI untuk sementara waktu.
+const uri = "mongodb+srv://bpkhadmin:selamatdatang123@bpkh5.7fy532l.mongodb.net/bpkh_db?retryWrites=true&w=majority&appName=bpkh5&authSource=admin";
+// ---------------------------------------------
 
-// Pemeriksaan ini penting untuk menghentikan build jika variabel tidak ada.
 if (!uri) {
-    throw new Error('CRITICAL: The MONGODB_URI environment variable was not found. Please re-check Vercel settings.');
+    throw new Error('CRITICAL: The MONGODB_URI was not found.');
 }
 
-// Client dibuat di sini, di mana `uri` sudah pasti ada.
 const client = new MongoClient(uri);
 
 let db: Db;
@@ -20,20 +21,14 @@ export async function connectToDatabase() {
   try {
     await client.connect();
     db = client.db('bpkh_db'); 
-    console.log('Connected to MongoDB successfully!');
+    console.log('Connected to MongoDB successfully! (Using hardcoded URI)');
     return db;
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
+    console.error('Error connecting to MongoDB (with hardcoded URI):', error);
     
-    // Meskipun kita sudah memeriksa `uri` di atas, TypeScript butuh pemeriksaan di sini juga.
-    // Ini adalah pemeriksaan keamanan sebelum menggunakan variabel `uri` di dalam blok ini.
-    if (uri) {
-        const safeUri = uri.replace(/:\/\/.*@/, '://<credentials>@');
-        console.error('Attempted to connect with this URI:', safeUri);
-    } else {
-        // Kasus ini seharusnya tidak mungkin terjadi, tapi ini untuk memuaskan compiler.
-        console.error('Attempted to connect, but MONGODB_URI was undefined at the point of error.');
-    }
+    // Log versi aman dari URI
+    const safeUri = uri.replace(/:\/\/.*@/, '://<credentials>@');
+    console.error('Attempted to connect with this URI:', safeUri);
     
     throw error;
   }
