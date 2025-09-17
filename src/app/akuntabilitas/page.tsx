@@ -1,79 +1,90 @@
+// app/tata-usaha/akuntabilitas/page.tsx
 "use client";
-import React from 'react';
-import { Disclosure } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/20/solid';
 
-const accountabilityData = [
-  {
-    id: 'acc-001',
-    title: 'Laporan Akuntabilitas Kinerja Instansi Pemerintah (LAKIP)',
-    summary: 'Dokumen pertanggungjawaban atas kinerja BPKH V Banjarbaru dalam mencapai tujuan dan sasaran strategis selama satu tahun anggaran.',
-    details: 'LAKIP ini menyajikan analisis capaian kinerja, perbandingan antara target dan realisasi, serta evaluasi program kerja yang telah dilaksanakan. Dokumen ini merupakan wujud transparansi dan akuntabilitas kami kepada publik.',
-    link: '#' // Placeholder link
-  },
-  {
-    id: 'acc-002',
-    title: 'Laporan Keuangan Tahunan',
-    summary: 'Ringkasan kondisi keuangan BPKH V Banjarbaru, termasuk alokasi dan realisasi anggaran yang telah diaudit oleh lembaga yang berwenang.',
-    details: 'Laporan keuangan ini mencakup neraca, laporan realisasi anggaran, laporan operasional, dan catatan atas laporan keuangan. Semua data disajikan sesuai dengan Standar Akuntansi Pemerintahan (SAP).',
-    link: '#' // Placeholder link
-  },
-  {
-    id: 'acc-003',
-    title: 'Informasi Pengadaan Barang dan Jasa',
-    summary: 'Informasi terkait proses lelang, pengadaan, dan kontrak untuk barang dan jasa yang dibutuhkan oleh BPKH V Banjarbaru.',
-    details: 'Kami berkomitmen untuk menjalankan proses pengadaan yang transparan, adil, dan kompetitif. Semua informasi lelang, pengumuman pemenang, dan detail kontrak dapat diakses melalui platform Layanan Pengadaan Secara Elektronik (LPSE) yang terintegrasi.',
-    link: '#' // Placeholder link
-  },
-  {
-    id: 'acc-004',
-    title: 'Rencana Strategis (Renstra)',
-    summary: 'Dokumen perencanaan jangka menengah yang menguraikan visi, misi, tujuan, strategi, dan program kerja BPKH V Banjarbaru untuk periode lima tahun.',
-    details: 'Renstra menjadi acuan utama dalam penyusunan program kerja tahunan dan menjadi dasar pengukuran keberhasilan kinerja instansi dalam jangka menengah. Dokumen ini menetapkan arah kebijakan dan prioritas program untuk mencapai visi yang telah ditetapkan.',
-    link: '#' // Placeholder link
-  }
-];
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const AkuntabilitasPage = () => {
+export default function Akuntabilitas() {
   return (
-    <div className="bg-white min-h-screen">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">Akuntabilitas</h1>
-        <p className="text-lg text-gray-600 mb-10">
-          Sebagai wujud komitmen kami terhadap transparansi dan tata kelola yang baik (Good Governance), kami menyediakan akses kepada publik terhadap berbagai laporan dan dokumen pertanggungjawaban kinerja.
-        </p>
+    <div className="p-6 space-y-8">
+      <h1 className="text-3xl font-bold mb-6">Akuntabilitas</h1>
 
-        <div className="w-full max-w-4xl mx-auto rounded-2xl bg-white p-2 space-y-4">
-          {accountabilityData.map((item) => (
-            <Disclosure key={item.id} as="div" className="mt-2">
-              {({ open }) => (
-                <>
-                  <Disclosure.Button className="flex w-full justify-between rounded-lg bg-green-100 px-4 py-4 text-left text-lg font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring focus-visible:ring-green-500 focus-visible:ring-opacity-75">
-                    <span>{item.title}</span>
-                    <ChevronUpIcon
-                      className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-green-500`}
-                    />
-                  </Disclosure.Button>
-                  <Disclosure.Panel className="px-4 pt-4 pb-2 text-base text-gray-600 border border-t-0 border-gray-200 rounded-b-lg">
-                    <p className="font-semibold mb-2">{item.summary}</p>
-                    <p className="mb-3">{item.details}</p>
-                    <a 
-                      href={item.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition-colors duration-200"
-                    >
-                      Lihat Dokumen
-                    </a>
-                  </Disclosure.Panel>
-                </>
-              )}
-            </Disclosure>
-          ))}
-        </div>
-      </div>
+      <Tabs defaultValue="kinerja" className="w-full">
+        <TabsList className="grid grid-cols-3 w-full max-w-md">
+          <TabsTrigger value="kinerja">Laporan Kinerja</TabsTrigger>
+          <TabsTrigger value="keuangan">Keuangan</TabsTrigger>
+          <TabsTrigger value="dokumentasi">Dokumentasi</TabsTrigger>
+        </TabsList>
+
+        {/* Tab 1 - Laporan Kinerja */}
+        <TabsContent value="kinerja">
+          <h2 className="text-xl font-semibold mb-2">Laporan Kinerja</h2>
+          <ul className="list-disc pl-6 space-y-1">
+            <li>Turnamen Futsal Internal - Januari 2025 ✅</li>
+            <li>Rapat Besar Anggota - Februari 2025 ✅</li>
+            <li>Pelatihan Wasit & Coaching Clinic - Maret 2025 ✅</li>
+          </ul>
+        </TabsContent>
+
+        {/* Tab 2 - Keuangan */}
+        <TabsContent value="keuangan">
+          <h2 className="text-xl font-semibold mb-2">Transparansi Keuangan</h2>
+          <table className="w-full border-collapse border border-gray-300">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="border p-2">Tanggal</th>
+                <th className="border p-2">Keterangan</th>
+                <th className="border p-2">Pemasukan</th>
+                <th className="border p-2">Pengeluaran</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="border p-2">10 Jan 2025</td>
+                <td className="border p-2">Iuran anggota</td>
+                <td className="border p-2">Rp 500.000</td>
+                <td className="border p-2">-</td>
+              </tr>
+              <tr>
+                <td className="border p-2">15 Jan 2025</td>
+                <td className="border p-2">Sewa lapangan</td>
+                <td className="border p-2">-</td>
+                <td className="border p-2">Rp 300.000</td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="mt-4">
+            <a
+              href="/docs/laporan-keuangan-2025.pdf"
+              target="_blank"
+              className="text-blue-600 underline"
+            >
+              📄 Unduh Laporan Lengkap (PDF)
+            </a>
+          </div>
+        </TabsContent>
+
+        {/* Tab 3 - Dokumentasi */}
+        <TabsContent value="dokumentasi">
+          <h2 className="text-xl font-semibold mb-2">Dokumentasi</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <img
+              src="/images/futsal1.jpg"
+              alt="Futsal 1"
+              className="rounded-lg shadow"
+            />
+            <img
+              src="/images/futsal2.jpg"
+              alt="Futsal 2"
+              className="rounded-lg shadow"
+            />
+            <img
+              src="/images/futsal3.jpg"
+              alt="Futsal 3"
+              className="rounded-lg shadow"
+            />
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
-};
-
-export default AkuntabilitasPage;
+}
