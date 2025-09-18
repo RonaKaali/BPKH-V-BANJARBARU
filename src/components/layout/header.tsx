@@ -42,13 +42,13 @@ const navLinks = [
     ],
   },
   {
-    label: 'SDHTL',
-    href: '/sdhtl',
+    label: 'SDH',
+    href: '/sdh',
     subLinks: [
-      { href: '/sdhtl/enumerasi-tsp-psp', label: 'ENUMERASI TSP/PSP' },
-      { href: '/sdhtl/re-enumerasi-psp', label: 'RE-ENUMERASI PSP' },
-      { href: '/sdhtl/penafsiran-citra', label: 'PENAFSIRAN CITRA' },
-      { href: '/sdhtl/ground-check', label: 'GROUND CHECK' },
+      { href: '/sdh/enumerasi-tsp-psp', label: 'ENUMERASI TSP/PSP' },
+      { href: '/sdh/re-enumerasi-psp', label: 'RE-ENUMERASI PSP' },
+      { href: '/sdh/penafsiran-citra', label: 'PENAFSIRAN CITRA' },
+      { href: '/sdh/ground-check', label: 'GROUND CHECK' },
     ],
   },
   {
