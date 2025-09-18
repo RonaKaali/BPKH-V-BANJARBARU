@@ -1,86 +1,30 @@
 
-'use client';
-
-import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { MessageSquare } from "lucide-react";
 
-export default function PengaduanMasyarakatPage() {
-  const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
-  const [feedbackMessage, setFeedbackMessage] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setFeedbackMessage('');
-    setIsError(false);
-
-    try {
-      const response = await fetch('/api/feedback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          name, 
-          message,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setFeedbackMessage('Pesan Anda telah berhasil dikirim. Terima kasih!');
-        setName('');
-        setMessage('');
-      } else {
-        setIsError(true);
-        setFeedbackMessage(result.message || 'Terjadi kesalahan saat mengirim pesan.');
-      }
-    } catch (error) {
-      setIsError(true);
-      setFeedbackMessage('Tidak dapat terhubung ke server. Silakan coba lagi nanti.');
-    }
-
-    setIsSubmitting(false);
-  };
-
+export default function PengaduanPage() {
   return (
     <div className="container mx-auto py-12 px-4">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-primary">Pengaduan, Masukan, dan Saran</CardTitle>
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-orange-600/10 rounded-full">
+                <MessageSquare className="h-8 w-8 text-orange-600" />
+            </div>
+            <CardTitle className="text-3xl font-bold text-orange-600 tracking-tight">Pengaduan / Masukan / Saran</CardTitle>
+          </div>
+          <p className="text-muted-foreground pt-2">Kami sangat menghargai setiap masukan, saran, atau pengaduan dari Anda untuk perbaikan layanan kami.</p>
         </CardHeader>
         <CardContent>
-          <p className="mb-6 text-foreground/80">
-            Kami berkomitmen untuk memberikan pelayanan terbaik. Jika Anda memiliki keluhan, kritik, atau saran terkait pelayanan kami, silakan sampaikan melalui formulir di bawah ini.
-          </p>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="name">Nama</Label>
-              <Input id="name" placeholder="Masukkan nama Anda" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="message">Pesan</Label>
-              <Textarea id="message" rows={6} placeholder="Tuliskan pesan Anda secara rinci" value={message} onChange={(e) => setMessage(e.target.value)} required />
-            </div>
-            <div className="text-right">
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Mengirim...' : 'Kirim Pesan'}
-              </Button>
-            </div>
-            {feedbackMessage && (
-              <div className={`mt-4 text-center p-4 rounded-lg ${isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
-                <p>{feedbackMessage}</p>
-              </div>
-            )}
-          </form>
+          <div className="aspect-[4/3] w-full">
+            <iframe 
+              src="https://docs.google.com/forms/d/e/1FAIpQLSde_c7g_8w_1d_3B_q2t_l4d_2y_7f_6c_9a_1b_1d_3B_4e_2f_7g/viewform?embedded=true" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }}>
+                Memuat…
+            </iframe>
+          </div>
         </CardContent>
       </Card>
     </div>

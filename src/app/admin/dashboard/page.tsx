@@ -2,9 +2,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 interface Appointment {
   id: string;
@@ -65,6 +68,27 @@ export default function AdminDashboardPage() {
   return (
     <div className="container mx-auto py-12 px-4">
       <h1 className="text-3xl font-bold text-primary mb-8">Admin Dashboard</h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <Card>
+            <CardHeader>
+                <CardTitle>Hasil Survei</CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Link href="/admin/survei/ipk">
+                    <Button variant="outline" className="w-full justify-between"> 
+                        Survei IPK <ArrowRight className="h-4 w-4" />
+                    </Button>
+                </Link>
+                <Link href="/admin/survei/skm">
+                    <Button variant="outline" className="w-full justify-between">
+                        Survei SKM <ArrowRight className="h-4 w-4" />
+                    </Button>
+                </Link>
+            </CardContent>
+        </Card>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card>
           <CardHeader>
