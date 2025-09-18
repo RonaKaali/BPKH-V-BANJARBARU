@@ -24,7 +24,6 @@ const navLinks = [
       { href: '/tata-usaha/akuntabilitas', label: 'AKUNTABILITAS' },
       { href: '/tata-usaha/kepegawaian', label: 'Kepegawaian' },
       { href: '/tata-usaha/keuangan', label: 'Keuangan' },
-      { href: '/tata-usaha/buku-statistik', label: 'Buku Statistik' },
     ],
   },
   {
