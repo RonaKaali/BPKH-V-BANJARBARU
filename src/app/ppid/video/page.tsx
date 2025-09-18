@@ -1,46 +1,64 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Youtube } from "lucide-react";
 
-const videos = [
+const videoList = [
   {
-    title: "Pisah Sambut Pejabat Administrator & Pengawas Balai Pemantapan Kawasan Hutan Wilayah V",
-    embedUrl: "https://www.youtube.com/embed/4PxWKZy2X34",
+    id: "1Go67mX46eg",
+    title: "Profil BPKH Wilayah V Banjarbaru",
+    description: "Video profil Balai Pemantapan Kawasan Hutan dan Tata Lingkungan Wilayah V Banjarbaru."
   },
   {
-    title: "Wakil Menteri Kehutanan Republik Indonesia melakukan Kunjungan Kerja ke Persemaian Liang Anggang",
-    embedUrl: "https://www.youtube.com/embed/8D19082mRTQ",
+    id: "jT6-oODda60",
+    title: "Penataan Batas Kawasan Hutan",
+    description: "Video penjelasan mengenai proses dan pentingnya kegiatan penataan batas kawasan hutan."
   },
   {
-    title: "SELAMAT HARI RAYA IDUL FITRI 1 SYAWAL 1446 H",
-    embedUrl: "https://www.youtube.com/embed/unX-XYObLxk",
+    id: "HyhLbJKY12E",
+    title: "BPKH V Banjarbaru Menuju WBK",
+    description: "Video deklarasi pembangunan Zona Integritas menuju Wilayah Bebas dari Korupsi (WBK)."
   },
+  {
+    id: "XFjWpY28Axg",
+    title: "Zona Integritas BPKH Wilayah V Banjarbaru",
+    description: "Komitmen BPKH V Banjarbaru dalam pembangunan Zona Integritas."
+  }
 ];
 
 export default function VideoPage() {
   return (
     <div className="container mx-auto py-12 px-4">
       <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-primary">Video</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {videos.map((video, index) => (
-            <div key={index} className="rounded-lg overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
-              <div className="aspect-w-16 aspect-h-9">
-                <iframe
-                  src={video.embedUrl}
-                  title={video.title}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                ></iframe>
+          <CardHeader>
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-red-600/10 rounded-full">
+                  <Youtube className="h-8 w-8 text-red-600" />
               </div>
-              <div className="p-4 bg-background/90">
-                <h3 className="font-semibold text-foreground/90">{video.title}</h3>
-              </div>
+              <CardTitle className="text-3xl font-bold text-red-600 tracking-tight">Galeri Video</CardTitle>
             </div>
-          ))}
+            <p className="text-muted-foreground pt-2">Kumpulan video dokumentasi dan informasi seputar kegiatan BPKH V Banjarbaru.</p>
+          </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {videoList.map(video => (
+              <div key={video.id} className="rounded-lg overflow-hidden shadow-lg border">
+                <div className="aspect-video bg-black">
+                  <iframe 
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${video.id}`}
+                    title={video.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <div className="p-4 bg-background">
+                  <h3 className="font-bold text-lg text-primary mb-1">{video.title}</h3>
+                  <p className="text-muted-foreground text-sm">{video.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
     </div>

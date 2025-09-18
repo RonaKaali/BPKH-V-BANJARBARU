@@ -55,7 +55,6 @@ const navLinks = [
     label: 'PPID',
     href: '/ppid',
     subLinks: [
-      { href: '/ppid/foto-foto', label: 'FOTO-FOTO' },
       { href: '/ppid/video', label: 'VIDEO' },
       { href: '/ppid/peraturan', label: 'Peraturan' },
       { href: '/ppid/perundangan', label: 'Perundangan' },
@@ -113,7 +112,7 @@ export function Header() {
               </h1>
               <p className="text-sm text-muted-foreground">
                 Telp: (0511) 4772587 Faks: (0511) 4772101 Email:
-                bpkh5banjarbaru@menlhk.go.id
+                bpkh.wil5@kehutanan.go.id
               </p>
             </div>
           </div>
