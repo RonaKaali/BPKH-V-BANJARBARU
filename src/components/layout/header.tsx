@@ -75,7 +75,7 @@ const navLinks = [
     label: 'PELAYANAN',
     href: '/pelayanan',
     subLinks: [
-      { href: '/pelayanan/pengaduan', label: 'Pangaduan / Masukan / Saran' },
+      { href: '/pelayanan', label: 'Pangaduan / Masukan / Saran' },
       {
         href: '/pelayanan/kuesioner-survei-ipk',
         label: 'Kuesioner Survei IPK',
