@@ -1,5 +1,6 @@
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Facebook, Instagram, Mail, MapPin, Phone, Printer, Youtube } from "lucide-react";
 
 const contactInfo = [
@@ -39,74 +40,73 @@ const contactInfo = [
             { icon: Mail, text: "bpkh.wil5@kehutanan.go.id", url: "mailto:bpkh.wil5@kehutanan.go.id" },
         ]
     },
-    {
-        icon: MapPin,
-        label: "Alamat Kantor",
-        details: [
-            { 
-                icon: MapPin, 
-                text: "Jl. Ir. P. M. Noor, Kel. Sulingan, Kec. Murung Pudak, Kab. Tabalong, Kalimantan Selatan",
-                url: "https://maps.app.goo.gl/qE5mZ4j5y9k8S3C57"
-            },
-        ]
-    },
 ];
 
 export default function ContactPage() {
     return (
         <div className="container mx-auto py-12 px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {contactInfo.map((info, index) => (
-                    <Card key={index} className="bg-primary/5 border-primary/20 hover:shadow-lg transition-shadow">
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-3 text-primary">
-                                <info.icon className="h-6 w-6" />
-                                <span className="font-bold text-xl">{info.label}</span>
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="space-y-2 text-muted-foreground">
-                                {info.details.map((detail, i) => (
-                                    <div key={i} className="flex items-center gap-3">
-                                        <detail.icon className="h-4 w-4" />
-                                        {detail.url ? (
-                                            <a 
-                                                href={detail.url} 
-                                                target="_blank" 
-                                                rel="noopener noreferrer" 
-                                                className="hover:text-primary hover:underline transition-colors"
-                                            >
-                                                {detail.text}
-                                            </a>
-                                        ) : (
-                                            <span>{detail.text}</span>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
+            <div className="mb-12">
+                <h2 className="text-3xl font-bold text-primary text-center mb-8">Hubungi Kami</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {contactInfo.map((info, index) => (
+                        <Card key={index} className="bg-primary/5 border-primary/20 hover:shadow-lg transition-shadow">
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-3 text-primary">
+                                    <info.icon className="h-6 w-6" />
+                                    <span className="font-bold text-xl">{info.label}</span>
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-2 text-muted-foreground">
+                                    {info.details.map((detail, i) => (
+                                        <div key={i} className="flex items-center gap-3">
+                                            <detail.icon className="h-4 w-4" />
+                                            {detail.url ? (
+                                                <a 
+                                                    href={detail.url} 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer" 
+                                                    className="hover:text-primary hover:underline transition-colors"
+                                                >
+                                                    {detail.text}
+                                                </a>
+                                            ) : (
+                                                <span>{detail.text}</span>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
             </div>
 
-             <Card className="mt-8">
-                <CardHeader>
-                    <CardTitle className="text-2xl font-bold text-primary">Peta Lokasi</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="aspect-[16/9] w-full rounded-lg overflow-hidden border">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.935360348956!2d115.4169739759404!3d-2.170949037410884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de55776044a29a3%3A0x63c6c3e3e0d8b4b1!2sBalai%20Pemantapan%20Kawasan%20Hutan%20(BPKH)%20Wilayah%20V!5e0!3m2!1sid!2sid!4v1716361545436!5m2!1sid!2sid" 
-                            width="100%" 
-                            height="100%" 
-                            style={{ border: 0 }} 
-                            allowFullScreen 
-                            loading="lazy" 
-                            referrerPolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                </CardContent>
-            </Card>
+            <div className="max-w-4xl mx-auto">
+                 <Card className="mb-8">
+                    <CardHeader>
+                         <CardTitle className="flex items-center gap-3 text-primary">
+                            <MapPin className="h-6 w-6" />
+                            <span className="font-bold text-xl">Alamat & Peta Lokasi</span>
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                         <p className="text-lg text-foreground/80 mb-4">
+                            Jl. Ir. P. M. Noor, Guntung Paikat, Kec. Banjarbaru Sel., Kota Banjar Baru, Kalimantan Sel. 70714
+                        </p>
+                        <div className="aspect-[16/9] w-full rounded-lg overflow-hidden border">
+                            <iframe
+                                src="https://maps.google.com/maps?q=-3.4439437,114.8546658&hl=id&z=14&amp;output=embed"
+                                className="w-full h-full"
+                                style={{ border: 0 }}
+                                allowFullScreen={true}
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     );
 }
