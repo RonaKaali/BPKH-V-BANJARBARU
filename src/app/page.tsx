@@ -102,9 +102,6 @@ export default function Home() {
             peraturan, dan upaya konservasi kehutanan.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg">
-              <Link href="/regulations">Peraturan Kemenhut</Link>
-            </Button>
             <Button asChild size="lg" className="bg-green-600 text-white hover:bg-green-700">
                 <Link href="/appointment">Buat Janji Temu</Link>
             </Button>
