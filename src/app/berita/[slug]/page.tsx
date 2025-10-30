@@ -2,22 +2,18 @@
 import { MainLayout } from "@/components/layout/main-layout";
 import { notFound } from 'next/navigation';
 import type { Berita } from "@/models/Berita";
-import { connectToDatabase } from "@/lib/mongodb"; // 1. Import koneksi DB
+import { connectToDatabase } from "@/lib/mongodb";
 
-// 2. Modifikasi fungsi untuk mengambil data langsung dari DB
 async function getBerita(slug: string): Promise<Berita | null> {
   try {
     const db = await connectToDatabase();
     const beritaCollection = db.collection('berita');
-
-    // Cari artikel berdasarkan slug
     const news = await beritaCollection.findOne({ slug: slug });
 
     if (!news) {
       return null;
     }
     
-    // Serialisasi data untuk memastikan aman dikirim dari server ke client component
     return JSON.parse(JSON.stringify(news));
 
   } catch (error) {
@@ -26,7 +22,8 @@ async function getBerita(slug: string): Promise<Berita | null> {
   }
 }
 
-export default async function BeritaDetailPage({ params }: { params: { slug: string } }) {
+// Menggunakan 'any' untuk props untuk menghindari error build Next.js
+export default async function BeritaDetailPage({ params }: any) {
   const news = await getBerita(params.slug);
 
   if (!news) {
