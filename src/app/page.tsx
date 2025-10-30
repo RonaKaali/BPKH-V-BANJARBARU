@@ -3,6 +3,9 @@ import { connectToDatabase } from "@/lib/mongodb";
 import { HomeClient } from "./home-client";
 import type { Berita } from "@/models/Berita";
 
+// PERBAIKAN: Memaksa rendering dinamis untuk selalu mendapatkan data terbaru
+export const revalidate = 0;
+
 // Tipe data untuk Feedback, pastikan cocok dengan skema DB
 interface Feedback {
   _id: string;
