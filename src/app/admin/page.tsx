@@ -7,7 +7,7 @@ import * as XLSX from 'xlsx';
 
 // Definisikan tipe untuk objek feedback
 interface Feedback {
-  id: string;
+  _id: string;
   name: string;
   message: string;
   timestamp: string;
@@ -15,7 +15,7 @@ interface Feedback {
 
 // Definisikan tipe untuk objek appointment
 interface Appointment {
-  id: string;
+  _id: string;
   name: string;
   phone: string;
   date: string;
@@ -105,7 +105,7 @@ export default function AdminPage() {
   const handleStatusChange = async (id: string, newStatus: 'Pending' | 'On Going' | 'Done') => {
     const previousAppointments = appointments;
     const newAppointments = appointments.map((appt) =>
-      appt.id === id ? { ...appt, status: newStatus } : appt
+      appt._id === id ? { ...appt, status: newStatus } : appt
     );
     setAppointments(newAppointments);
 
@@ -196,12 +196,12 @@ export default function AdminPage() {
               <tbody>
                 {feedback.length > 0 ? (
                   feedback.map((fb) => (
-                    <tr key={fb.id}>
+                    <tr key={fb._id}>
                       <td style={{ border: '1px solid #ddd', padding: '8px' }}>{fb.name}</td>
                       <td style={{ border: '1px solid #ddd', padding: '8px' }}>{fb.message}</td>
                       <td style={{ border: '1px solid #ddd', padding: '8px' }}>{new Date(fb.timestamp).toLocaleString('id-ID')}</td>
                       <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                        <button onClick={() => handleDeleteFeedback(fb.id)} style={{ padding: '5px 10px', backgroundColor: '#dc3545', color: 'white', border: 'none', borderRadius: '5px' }}>
+                        <button onClick={() => handleDeleteFeedback(fb._id)} style={{ padding: '5px 10px', backgroundColor: '#dc3545', color: 'white', border: 'none', borderRadius: '5px' }}>
                           Hapus
                         </button>
                       </td>
@@ -237,7 +237,7 @@ export default function AdminPage() {
               <tbody>
                 {appointments.length > 0 ? (
                   appointments.map((appt) => (
-                    <tr key={appt.id}>
+                    <tr key={appt._id}>
                       <td style={{ border: '1px solid #ddd', padding: '8px' }}>{appt.name}</td>
                       <td style={{ border: '1px solid #ddd', padding: '8px' }}>{appt.phone}</td>
                       <td style={{ border: '1px solid #ddd', padding: '8px' }}>{new Date(appt.date).toLocaleDateString('id-ID')}</td>
@@ -245,7 +245,7 @@ export default function AdminPage() {
                       <td style={{ border: '1px solid #ddd', padding: '8px' }}>
                         <select
                           value={appt.status}
-                          onChange={(e) => handleStatusChange(appt.id, e.target.value as 'Pending' | 'On Going' | 'Done')}
+                          onChange={(e) => handleStatusChange(appt._id, e.target.value as 'Pending' | 'On Going' | 'Done')}
                           style={{ padding: '5px' }}
                         >
                           <option value="Pending">Pending</option>

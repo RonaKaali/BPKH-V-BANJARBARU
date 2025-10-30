@@ -36,16 +36,6 @@ const surveyData = {
   skm: { questions: 9, respondents: 100, value: 88.76 }
 };
 
-const services = [
-  {
-    title: 'Informasi Publik',
-    description: 'Akses informasi publik sesuai amanat UU No. 14 Tahun 2008.',
-    link: '/informasi-publik/berkala',
-    icon: 'menu_book'
-  },
-  // ... (data services lainnya)
-];
-
 const faqData = [
     {
         question: 'Apa saja jenis layanan yang tersedia di BPKH Wilayah V?',
@@ -151,40 +141,6 @@ export function HomeClient({ latestNews, initialFeedbacks }: HomeClientProps) {
               <img src="/images/anti-korupsi.png" alt="Anti Korupsi" className="rounded-lg shadow-lg max-h-96 w-auto mx-auto" />
             </div>
 
-          </div>
-        </motion.section>
-
-        <motion.section 
-          id="services" 
-          className="py-16 bg-gray-50"
-          variants={mainVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }} // once: false
-        >
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold">Layanan Kami</h2>
-              <p className="text-gray-600 mt-2">Menyediakan layanan informasi dan teknis di bidang kehutanan.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {services.map(service => (
-                <Card key={service.title} className="text-center">
-                  <CardHeader>
-                    <div className="mx-auto bg-primary text-white rounded-full p-4 w-fit">
-                      <span className="material-icons">{service.icon}</span>
-                    </div>
-                    <CardTitle>{service.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600">{service.description}</p>
-                    <Link href={service.link} className={`${buttonVariants({ variant: 'link' })} mt-4`}>
-                      Selengkapnya
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
           </div>
         </motion.section>
 
