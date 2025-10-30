@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link'; // Import Link
 import * as XLSX from 'xlsx';
 
 // Definisikan tipe untuk objek feedback
@@ -171,6 +172,9 @@ export default function AdminPage() {
         <button onClick={() => setView('appointments')} style={{ padding: '10px 20px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '5px', fontWeight: view === 'appointments' ? 'bold' : 'normal' }}>Lihat Janji Temu</button>
         <button onClick={() => setView('survei-ipk')} style={{ padding: '10px 20px', backgroundColor: '#17a2b8', color: 'white', border: 'none', borderRadius: '5px', fontWeight: view === 'survei-ipk' ? 'bold' : 'normal' }}>Lihat Survei IPK</button>
         <button onClick={() => setView('survei-skm')} style={{ padding: '10px 20px', backgroundColor: '#17a2b8', color: 'white', border: 'none', borderRadius: '5px', fontWeight: view === 'survei-skm' ? 'bold' : 'normal' }}>Lihat Survei SKM</button>
+        <Link href="/admin/berita" style={{ padding: '10px 20px', backgroundColor: '#007bff', color: 'white', textDecoration: 'none', borderRadius: '5px' }}>
+          Manajemen Berita
+        </Link>
       </div>
 
       {loading && <p>Memuat...</p>}

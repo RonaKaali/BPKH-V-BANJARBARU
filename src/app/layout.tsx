@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: "BPKH Wilayah V Banjarbaru - Pemantapan Kawasan Hutan",
   description: "Situs resmi Balai Pemantapan Kawasan Hutan (BPKH) Wilayah V Banjarbaru. Sumber utama informasi mengenai kebijakan, peraturan, dan upaya konservasi kehutanan di Kalimantan.",
   keywords: "BPKH, Banjarbaru, BPKH Wilayah V, Kehutanan, Konservasi, Kawasan Hutan, Peta Hutan, TORA, PPKH",
+  icons: {
+    icon: '/images/logo-bpkh.png',
+  },
 };
 
 export default function RootLayout({
