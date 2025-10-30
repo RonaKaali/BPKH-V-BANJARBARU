@@ -6,7 +6,7 @@ import { Berita } from '@/models/Berita';
 import { ObjectId } from 'mongodb';
 
 // GET a single news article by slug
-export async function GET(request: Request, { params }: { params: { slug: string } }) {
+export async function GET(request: Request, { params }: any) {
   try {
     const db = await connectToDatabase();
     const beritaCollection = db.collection<Berita>('berita');
@@ -24,7 +24,7 @@ export async function GET(request: Request, { params }: { params: { slug: string
 }
 
 // PUT (update) a news article by slug
-export async function PUT(request: Request, { params }: { params: { slug: string } }) {
+export async function PUT(request: Request, { params }: any) {
   try {
     const data: Partial<Berita> = await request.json();
     const { title, content, image } = data;
@@ -60,7 +60,7 @@ export async function PUT(request: Request, { params }: { params: { slug: string
 }
 
 // DELETE a news article by slug
-export async function DELETE(request: Request, { params }: { params: { slug: string } }) {
+export async function DELETE(request: Request, { params }: any) {
   try {
     const db = await connectToDatabase();
     const beritaCollection = db.collection<Berita>('berita');
