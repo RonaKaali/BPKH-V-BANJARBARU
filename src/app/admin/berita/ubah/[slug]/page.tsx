@@ -5,15 +5,22 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ImageUpload } from "@/components/ui/image-upload"; // 1. Import komponen
+import { ImageUpload } from "@/components/ui/image-upload";
 import Link from "next/link";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function UbahBeritaPage({ params }: { params: { slug: string } }) {
+// Definisikan tipe untuk props halaman
+type UbahBeritaPageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+export default function UbahBeritaPage({ params }: UbahBeritaPageProps) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [imageUrl, setImageUrl] = useState<string | null>(null); // 2. Tambahkan state untuk URL gambar
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -34,8 +41,8 @@ export default function UbahBeritaPage({ params }: { params: { slug: string } })
         }
         const data = await response.json();
         setTitle(data.title);
-        setContent(data.content); // Asumsi konten adalah HTML
-        setImageUrl(data.image); // 3. Muat URL gambar yang sudah ada
+        setContent(data.content);
+        setImageUrl(data.image);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -61,7 +68,6 @@ export default function UbahBeritaPage({ params }: { params: { slug: string } })
         headers: {
           'Content-Type': 'application/json',
         },
-        // 4. Kirim imageUrl saat memperbarui
         body: JSON.stringify({ title, content, image: imageUrl }),
       });
 
@@ -108,7 +114,6 @@ export default function UbahBeritaPage({ params }: { params: { slug: string } })
               />
             </div>
 
-            {/* 5. Integrasikan komponen ImageUpload */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Gambar Unggulan</label>
               <ImageUpload 
