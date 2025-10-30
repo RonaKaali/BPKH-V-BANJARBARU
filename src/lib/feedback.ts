@@ -1,42 +1,31 @@
 
-import { connectToDatabase } from './mongodb';
-import { ObjectId } from 'mongodb';
+import { connectToDatabase } from "./mongodb";
 
-async function getFeedbackCollection() {
-  const db = await connectToDatabase();
-  return db.collection('feedback');
+// Definisikan tipe data Feedback yang konsisten
+interface Feedback {
+  _id: string;
+  name: string;
+  message: string;
+  timestamp: Date;
 }
 
-export const getFeedback = async () => {
-  const collection = await getFeedbackCollection();
-  const feedback = await collection.find({}).sort({ timestamp: -1 }).toArray();
-  // Perbaikan: Konversi _id menjadi string dan kembalikan seluruh dokumen
-  return feedback.map((doc) => ({
-    ...doc,
-    _id: doc._id.toString(),
-  }));
-};
+// Fungsi untuk mengambil semua masukan dari database
+export async function getFeedback(): Promise<Feedback[]> {
+  try {
+    const db = await connectToDatabase();
+    const collection = db.collection<Feedback>("feedback");
 
-// PERBAIKAN: Fungsi ini sekarang akan mengembalikan seluruh dokumen yang baru dibuat
-export const addFeedback = async (feedback: { name: string, message: string }) => {
-  const collection = await getFeedbackCollection();
-  const timestamp = new Date();
-  
-  // 1. Masukkan dokumen baru dengan timestamp server
-  const result = await collection.insertOne({ ...feedback, timestamp });
+    // PERBAIKAN: Hapus `projection` untuk mengambil semua field
+    const feedbacks = await collection
+      .find({})
+      .sort({ timestamp: -1 }) // Urutkan berdasarkan waktu terbaru
+      .toArray();
 
-  // 2. Ambil dokumen yang baru saja dimasukkan menggunakan insertedId
-  const newFeedback = await collection.findOne({ _id: result.insertedId });
+    // Kembalikan data lengkap yang sudah sesuai dengan tipe Feedback
+    return JSON.parse(JSON.stringify(feedbacks));
 
-  // 3. Kembalikan seluruh dokumen
-  return newFeedback;
-};
-
-export const deleteFeedbackById = async (id: string) => {
-  const collection = await getFeedbackCollection();
-  if (!ObjectId.isValid(id)) {
-    return false; // Kembalikan false jika ID tidak valid
+  } catch (error) {
+    console.error("Gagal mengambil data masukan:", error);
+    return []; // Kembalikan array kosong jika terjadi kesalahan
   }
-  const result = await collection.deleteOne({ _id: new ObjectId(id) });
-  return result.deletedCount > 0;
-};
+}
