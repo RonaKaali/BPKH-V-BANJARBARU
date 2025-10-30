@@ -12,14 +12,15 @@ export function ImageUpload({ onUploadSuccess, initialImageUrl }: ImageUploadPro
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(initialImageUrl || null);
   const [error, setError] = useState<string | null>(null);
-  const { toast } = useToast();
+  const { addToast } = useToast(); // FIX: Changed toast to addToast
 
   const handleFileChange = async (file: File) => {
     if (!file) return;
 
-    // Validasi tipe file
     if (!file.type.startsWith('image/')) {
-      setError('File harus berupa gambar (JPG, PNG, GIF, dll.)');
+      const errorMessage = 'File harus berupa gambar (JPG, PNG, GIF, dll.)';
+      setError(errorMessage);
+      addToast(errorMessage, 'error'); // FIX: Call addToast correctly
       return;
     }
 
@@ -43,18 +44,13 @@ export function ImageUpload({ onUploadSuccess, initialImageUrl }: ImageUploadPro
 
       setPreviewUrl(result.url);
       onUploadSuccess(result.url);
-      toast({
-        title: "Upload Berhasil",
-        description: "Gambar telah berhasil diunggah dan disimpan.",
-      });
+      // FIX: Call addToast with message and type
+      addToast("Gambar telah berhasil diunggah.", 'success');
 
     } catch (err: any) {
       setError(err.message);
-      toast({
-        title: "Upload Gagal",
-        description: err.message || "Terjadi kesalahan saat mengunggah.",
-        variant: "destructive",
-      });
+      // FIX: Call addToast with message and type
+      addToast(err.message || "Terjadi kesalahan saat mengunggah.", 'error');
     } finally {
       setUploading(false);
     }
