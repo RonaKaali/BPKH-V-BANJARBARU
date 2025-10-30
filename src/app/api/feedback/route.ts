@@ -15,15 +15,23 @@ export async function GET() {
 // Handler untuk POST request
 export async function POST(req: Request) {
   try {
-    const newFeedback = await req.json();
+    const body = await req.json();
+    const { name, message } = body;
 
-    if (!newFeedback.name || !newFeedback.message) {
+    if (!name || !message) {
         return new NextResponse('Nama dan pesan tidak boleh kosong', { status: 400 });
     }
 
-    const feedbackId = await addFeedback(newFeedback);
+    // Panggil fungsi addFeedback yang sudah diperbarui
+    const newFeedbackDocument = await addFeedback({ name, message });
 
-    return NextResponse.json({ id: feedbackId, ...newFeedback }, { status: 201 });
+    if (!newFeedbackDocument) {
+        throw new Error('Gagal membuat dokumen feedback di database.');
+    }
+
+    // Kembalikan seluruh dokumen feedback yang baru sebagai respons
+    // Ini akan digunakan oleh client untuk optimistic UI update
+    return NextResponse.json({ newFeedback: newFeedbackDocument }, { status: 201 });
 
   } catch (error) {
     console.error('[API_FEEDBACK_POST]', error);
