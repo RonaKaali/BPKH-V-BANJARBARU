@@ -1,21 +1,7 @@
 'use server';
 
 import { NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
-
-// Fungsi untuk memastikan direktori ada
-async function ensureDirectoryExists(directory: string) {
-  try {
-    // Menggunakan mkdir yang diimpor dari fs/promises
-    await mkdir(directory, { recursive: true });
-  } catch (error: any) {
-    // Jika direktori sudah ada, abaikan error EEXIST
-    if (error.code !== 'EEXIST') {
-      throw error;
-    }
-  }
-}
+import { put } from '@vercel/blob';
 
 export async function POST(request: Request) {
   try {
@@ -30,25 +16,19 @@ export async function POST(request: Request) {
     const safeOriginalName = file.name.replace(/[^a-zA-Z0-9._-]/g, '-');
     const uniqueFilename = `${timestamp}-${safeOriginalName}`;
 
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    const filePath = path.join(uploadDir, uniqueFilename);
+    // Unggah file ke Vercel Blob
+    const blob = await put(uniqueFilename, file, {
+      access: 'public',
+    });
 
-    await ensureDirectoryExists(uploadDir);
+    // `blob.url` akan berisi URL publik dari file yang diunggah
+    console.log(`File berhasil diunggah dan tersedia di: ${blob.url}`);
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    await writeFile(filePath, buffer);
-
-    console.log(`File berhasil diunggah dan disimpan di: ${filePath}`);
-
-    const publicUrl = `/uploads/${uniqueFilename}`;
-    return NextResponse.json({ message: 'File berhasil diunggah', url: publicUrl }, { status: 201 });
+    // Kembalikan URL dari Vercel Blob
+    return NextResponse.json({ message: 'File berhasil diunggah', url: blob.url }, { status: 201 });
 
   } catch (error) {
     console.error('API_UPLOAD_ERROR:', error);
-    // Mengembalikan pesan error yang lebih spesifik jika memungkinkan,
-    // namun untuk keamanan, 'Internal Server Error' sudah cukup.
     return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
   }
 }
