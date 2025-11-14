@@ -97,7 +97,7 @@ const navLinks = [
       },
     ],
   },
-  { href: '/file-unduhan', label: 'FILE UNDUHAN' },
+  { href: '/file-unduhan', label: 'UUD' },
 ];
 
 export function Header() {
